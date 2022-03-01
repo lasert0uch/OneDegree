@@ -1,0 +1,28 @@
+{
+  "name": "onedegree-automation",
+  "version": "1.0.01",
+  "private": true,
+  "scripts": {
+    "test": "npm run prepare-temp && npx wdio run wdio.conf.js",
+    "report-generate": "allure generate ./temp/allure-results -o ./temp/allure-report",
+    "report-open": "allure open ./temp/allure-report",
+    "temp-clean": "rm -rf temp",
+    "temp-create": "mkdir temp\\screenshots",
+    "prepare-temp": "npm run temp-clean && npm run temp-create"
+  },
+  "devDependencies": {
+    "@wdio/allure-reporter": "^7.16.13",
+    "@wdio/cli": "^7.16.13",
+    "@wdio/local-runner": "^7.16.13",
+    "@wdio/mocha-framework": "^7.16.13",
+    "@wdio/spec-reporter": "^7.16.13",
+    "chromedriver": "^98.0.0",
+    "wdio-chromedriver-service": "^7.2.6"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0"
+  }
+}
