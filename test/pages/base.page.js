@@ -38,7 +38,7 @@ class Base {
         // console.log('complete all') // gets loged first - Can be commented or removed later
         // console.log(tempArr);
         let resultObj = Object.fromEntries(tempArr);
-        // console.log(resultObj);
+        console.log(resultObj);
         return resultObj
     }
 
