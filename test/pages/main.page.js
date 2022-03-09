@@ -22,6 +22,7 @@ class Main extends Base {
         const text = await this.processMapAsync(buttons1);
         await buttons1[text.findIndex(el => el === 'Individual')].click();
         const buttons2 = await $$(sel.buttons2);
+        const selections = await this.processMapToTextandIdObject(buttons2); // Can't use due to ID's with Spaces :(
         for (let item of buttons2) {
             await item.click();
         }
