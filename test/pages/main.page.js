@@ -20,12 +20,14 @@ class Main extends Base {
         // console.log(await this.processMapAsync(buttons))
         console.log(await this.processMapAsync(buttons1)) // logs [ 'Individual', 'Service Provider', 'Admin' ]
         const text = await this.processMapAsync(buttons1);
+        await browser.pause(1000)
         await buttons1[text.findIndex(el => el === 'Individual')].click();
+        await browser.pause(1000);
+
         const buttons2 = await $$(sel.buttons2);
-        const selections = await this.processMapToTextandIdObject(buttons2); // Can't use due to ID's with Spaces :(
-        for (let item of buttons2) {
-            await item.click();
-        }
+        const selections = await this.objectsToTextandIds(buttons2); // Can't use most pairs, due to ID's with Spaces 
+        let programs = ['Laundry', 'Hygiene', 'Showers', 'Mail', 'Storage', 'Employment', 'Medical care', 'Child care', 'Foreclosure', 'Moving assistance', 'Short-term shelters',];
+        await this.clickItemsFromObject(selections, programs, 3);
         await $(sel.next).click();
         await browser.pause(1000);
     }

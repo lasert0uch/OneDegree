@@ -13,34 +13,43 @@ class Base {
                 let insertAction = await elem.getText(); // Value or action that will get inserted into array
                 responseArr.push(insertAction)  //  insertAction value is added into final response array 
             } catch (error) {
-                console.log('error:' + error);
+                console.log('processMapAsync error:' + error);
             }
         }))
-        console.log('complete all') // gets loged first - Can be commented or removed later
         return responseArr
     }
 
-
-    async processMapToTextandIdObject(objArr) { // This method returns text and ID of an Array of Objects (objArr) as an object
+    async objectsToTextandIds(objArr) { // This method returns text and ID of an Array of Objects (objArr) as an object
         let tempArr = [];
-        await Promise.all(objArr.map(async (elem) => {
-            try {
-                let tempArrInner = [];
-                let insertAction = await elem.getText(); // Value of Text that will get inserted into tempArrInner
-                tempArrInner.push(insertAction)  //  insertAction value is added into tempArrInner 
-                let insertAction1 = await elem.getProperty('id'); // Value of ID that will get inserted into tempArrInner
-                tempArrInner.push('#' + insertAction1)  //  insertAction1 value is added into tempArrInner 
-                tempArr.push(tempArrInner)  //  Pushes tempArrInner Pairs to tempArr 
-            } catch (error) {
-                console.log('error:' + error);
-            }
-        }))
-        // console.log('complete all') // gets loged first - Can be commented or removed later
+        for (const elem of objArr) {
+            let tempArrInner = [];
+            let insertAction = await elem.getText(); // Value of Text that will get inserted into tempArrInner
+            tempArrInner.push(insertAction)  //  insertAction value is added into tempArrInner 
+            let insertAction1 = await elem.getProperty('id'); // Value of ID that will get inserted into tempArrInner
+            tempArrInner.push('#' + insertAction1)  //  insertAction1 value is added into tempArrInner 
+            tempArr.push(tempArrInner)  //  Pushes tempArrInner Pairs to tempArr 
+        }
         // console.log(tempArr);
         let resultObj = Object.fromEntries(tempArr);
         console.log(resultObj);
         return resultObj
     }
+
+    async clickItemsFromObject(obj, arr, up) { // runs through array of object's keys for ID's to click. Optional UpArrow kep presses
+        let ups = [];
+        if (up > 0) {
+            for (let i = 1; i <= up; i++) {
+                ups.push('\ue013');
+            }
+        }
+        for (const el of arr) {
+            console.log(`'${el}': '${obj[el]}'`); // Log key:value pair of selection
+            if (up > 0) await browser.keys(ups);
+            await $(obj[el]).click(); // Click item
+        }
+    }
+
+
 
 
 
