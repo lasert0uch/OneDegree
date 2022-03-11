@@ -2,8 +2,9 @@
 
 
 class Base {
-    open(path) {
-        return browser.url(`https://floyd.1degree.org/${path}`)
+    open(server, path) {
+        path === undefined ? path = '' : path;
+        return browser.url(`https://${server}.1degree.org/${path}`);
     }
 
     async processMapAsync(data, method) { // This is an example of handling map and forEach in JavaScript async

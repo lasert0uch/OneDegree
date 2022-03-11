@@ -44,8 +44,8 @@ class Main extends Base {
     }
 
 
-    open(path) {
-        return super.open(path);
+    open(server, path) {
+        return super.open(server, path);
     }
 }
 
