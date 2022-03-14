@@ -43,10 +43,6 @@ class Main extends Base {
         await browser.pause(5000);
     }
 
-
-    open(server, path) {
-        return super.open(server, path);
-    }
 }
 
 

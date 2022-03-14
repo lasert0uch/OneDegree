@@ -2,10 +2,15 @@
 
 
 class Base {
-    open(server, path) {
-        path === undefined ? path = '' : path;
-        return browser.url(`https://${server}.1degree.org/${path}`);
+
+    open(server, path, auth) {
+        server === undefined || !server ? server = 'www' : server;
+        path === undefined || !path ? path = '' : path;
+        auth === undefined || !auth ? auth = '' : auth; // username:password@
+        console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
+        return browser.url(`https://${auth}${server}.1degree.org/${path}`);
     }
+
 
     async processMapAsync(data, method) { // This is an example of handling map and forEach in JavaScript async
         let responseArr = [];
@@ -19,6 +24,14 @@ class Base {
         }))
         return responseArr
     }
+
+    async selectOneFromArray(objArr, textChoice) { // This is an example of handling map and forEach in JavaScript async
+        for (const elem of objArr) {
+            let text = await elem.getText();
+            if (text === textChoice) return await elem.click();
+        }
+    }
+
 
     async objectsToTextandIds(objArr) { // This method returns text and ID of an Array of Objects (objArr) as an object
         let tempArr = [];

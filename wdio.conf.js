@@ -29,12 +29,17 @@ const config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/*.js'
+        './test/specs/od-la.js',
+        './test/specs/assessments.js',
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
+    maxInstances: process.env.MAX_INSTANCES === undefined ? 5 : +process.env.MAX_INSTANCES,
+
+    specFileRetries: process.env.RETRY_FAILURES === undefined ? 0 : +process.env.RETRY_FAILURES,
+
     //
     // ============
     // Capabilities
@@ -51,9 +56,6 @@ const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: process.env.MAX_INSTANCES === undefined ? 5 : +process.env.MAX_INSTANCES,
-
-    specFileRetries: process.env.RETRY_FAILURES === undefined ? 0 : +process.env.RETRY_FAILURES,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -108,7 +110,7 @@ const config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://floyd.1degree.org/lahip',
+    baseUrl: 'https://www.1degree.org',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 15000,
