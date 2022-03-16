@@ -1,14 +1,17 @@
 {
   "name": "onedegree-automation",
   "version": "1.0.01",
-  "private": true,
+  "main": ".mocharc.js",
+  "description": "One Degree Test Automation Framework",
+  "private": false,
   "scripts": {
     "test": "npm run prepare-temp && npx wdio run wdio.conf.js",
     "report-generate": "allure generate ./temp/allure-results -o ./temp/allure-report",
     "report-open": "allure open ./temp/allure-report",
     "temp-clean": "rm -rf temp",
     "temp-create": "mkdir temp\\screenshots",
-    "prepare-temp": "npm run temp-clean && npm run temp-create"
+    "prepare-temp": "npm run temp-clean && npm run temp-create",
+    "websites": "mocha"
   },
   "devDependencies": {
     "@wdio/allure-reporter": "^7.16.13",
@@ -23,6 +26,23 @@
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.2",
     "@babel/preset-env": "^7.16.11",
-    "@babel/register": "^7.17.0"
-  }
+    "@babel/register": "^7.17.0",
+    "axios": "^0.24.0",
+    "chai": "^4.3.6",
+    "chai-exclude": "^2.1.0"
+  },
+  "keywords": [
+    "test",
+    "WebdriverIO",
+    "mocha",
+    "MochaJS",
+    "chai",
+    "axios",
+    "API",
+    "RESTful",
+    "1Degree",
+    "One Degree"
+  ],
+  "author": "Sean Varvel",
+  "license": "ISC"
 }
