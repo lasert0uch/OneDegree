@@ -32,7 +32,7 @@ module.exports = {
     slow: '75',
     sort: false,
     spec: ['test/z_resourceManagement/statusChecker.js'], // the positional arguments!
-    timeout: '15s', // same as "timeout: '15000'"
+    timeout: '5s', // same as "timeout: '15000'"
     // timeout: false, // same as "'no-timeout': true" or "timeout: 0"
     'trace-warnings': true, // node flags ok
     ui: 'bdd',

@@ -11,7 +11,7 @@
     "temp-clean": "rm -rf temp",
     "temp-create": "mkdir temp\\screenshots",
     "prepare-temp": "npm run temp-clean && npm run temp-create",
-    "websites": "mocha"
+    "websites": "mocha 2>&1 | tee output.txt"
   },
   "devDependencies": {
     "@wdio/allure-reporter": "^7.16.13",

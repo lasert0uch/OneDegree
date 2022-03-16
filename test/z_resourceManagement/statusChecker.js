@@ -7,18 +7,20 @@ const isDebug = process.env.ISDEBUG === undefined ? false : process.env.ISDEBUG;
 
 describe(`Check-Websites-Status`, function () {
 
-    urls.forEach(site => {
+    urls.forEach((site, i) => {
 
         describe(site, function () {
 
-            let status, data;
+            let status;
+            let data;
 
             before((done) => {
+                console.log(`Checking: ${i + 1} - ${site}`);
                 axios.get(site)
                     .then(function (response) {
                         status = response.status;
                         data = response.data;
-                        console.log(status);
+                        console.log(`Result:   ${i + 1}: ${status} - ${site}`);
                         if (isDebug) { //for debug purposes
                             console.log(data);
                         }
@@ -26,14 +28,14 @@ describe(`Check-Websites-Status`, function () {
                     .catch(function (error) {
                         status = error.response.status;
                         data = error.response.data;
-                        if (isDebug) console.log(response.status); //for debug purposes
+                        if (isDebug) console.log(status); //for debug purposes
                     })
                     .then(function () {
                         done();
                     });
             });
 
-            it('Status is 200', function (done) {
+            it('Status-Should-Be-200:', function (done) {
                 expect(status).to.be.equal(200);
                 done();
             });
