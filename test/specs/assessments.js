@@ -1,4 +1,5 @@
 import assessments from '../pages/assessments.page';
+const data = assessments.data;
 
 describe('Assessment-Tests', () => {
 
@@ -8,6 +9,10 @@ describe('Assessment-Tests', () => {
 
     it('Check-Page', async () => {
         await assessments.checkPage();
+    })
+
+    it('Create-Account', async () => {
+        await assessments.createAccount(data);
     })
 
     it('Diabetes-Assessment', async () => {

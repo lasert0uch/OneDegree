@@ -29,7 +29,7 @@ const config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/od-la.js',
+        // './test/specs/od-la.js',
         './test/specs/assessments.js',
     ],
     // Patterns to exclude.
@@ -250,16 +250,16 @@ const config = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: function (test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed && !test.pending) {
 
             //save a screenshot
             let fullName = `${test.parent}-${test.title}`;
-            browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
+            await browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
 
             //test debug feature
             if (debugTest) {
-                browser.debug();
+                await browser.debug();
             }
         }
 
@@ -270,9 +270,9 @@ const config = {
      * Hook that gets executed after the suite has ended
      * @param {Object} suite suite details
      */
-    afterSuite: function (suite) {
+    afterSuite: async function (suite) {
         if (debugSuite) {
-            browser.debug();
+            await browser.debug();
         }
     },
     /**
@@ -291,14 +291,14 @@ const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
-    after: function (result, capabilities, specs) {
+    after: async function (result, capabilities, specs) {
         if (process.env.BS === 'true') {
             if (result === 0) {
                 console.log('Setting BrowserStack session status to "Good"...')
-                browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "passed"}}');
+                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "passed"}}');
             } else {
                 console.log('Setting BrowserStack session status to "Bad"...')
-                browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "failed"}}');
+                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "failed"}}');
             }
         }
     },

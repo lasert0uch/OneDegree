@@ -1,6 +1,20 @@
+import sel from "../selectors/default.sel";
+import help from "../helpers/helpers"
 
-
-
+const genericUser = {
+    firstName: help.randomFirstNameMale(),
+    lastName: help.randomLastName(),
+    email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
+    password: 'Password1*',
+    loc: 'Los Angeles, CA, USA',
+    org: 'One Degree',
+    position: 'Automation Wizard',
+    lang: 'English',
+    dobDay: '10',
+    dobMonth: 'January',
+    dobYear: '2001',
+    gender: 'Male',
+}
 class Base {
 
     open(server, path, auth) {
@@ -28,7 +42,9 @@ class Base {
     async selectOneFromArray(objArr, textChoice) { // This is an example of handling map and forEach in JavaScript async
         for (const elem of objArr) {
             let text = await elem.getText();
-            if (text === textChoice) return await elem.click();
+            text.trim();
+            console.log(text);
+            if (text.includes(textChoice)) return await elem.click();
         }
     }
 
@@ -63,7 +79,40 @@ class Base {
         }
     }
 
-
+    async createAccount(data) {
+        if (!data) data = genericUser;
+        await $(sel.signUp).click();
+        await browser.pause(1000);
+        await browser.switchToFrame(null);
+        await $(sel.txtEmailPhone).setValue(data.email);
+        await $(sel.txtPassword).setValue(data.password);
+        console.log({ email: data.email, passsword: data.password });
+        await $(sel.chkBox).click();
+        await $(sel.btnCreateAccount).click();
+        await browser.pause(3000);
+        await $$(sel.txtLocationSetters)[1].setValue(data.loc);
+        await browser.pause(2000);
+        await browser.keys(['\uE007']);
+        if (data.lang === 'Spanish') await $(sel.langSpanish).click();
+        await $(sel.btnContinue).click();
+        await $(sel.txtFirstName).setValue(data.firstName);
+        await $(sel.txtLastName).setValue(data.lastName);
+        await $(sel.txtOrg).setValue(data.org);
+        await browser.pause(5000);
+        await browser.keys(['\ue013']);
+        await browser.keys(['\uE007']);
+        await $(sel.txtPosition).setValue(data.position);
+        await $(sel.btnConnect).click();
+        await browser.pause(2000);
+        // await $(sel.txtPhone).setValue(data.phone);
+        // await $(sel.ddDOBDay).selectByVisibleText(data.dobDay);
+        // await $(sel.ddDOBMonth).selectByVisibleText(data.dobMonth);
+        // await $(sel.ddDOBYear).selectByVisibleText(data.dobYear);
+        await $(`//label[contains(text(),'${data.gender}')]`).click();
+        await $(sel.btnContinue).click();
+        await browser.switchToParentFrame();
+        // await browser.pause(10000);
+    }
 
 
 
