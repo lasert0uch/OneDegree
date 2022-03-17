@@ -20,7 +20,7 @@ describe(`Check-Websites-Status`, function () {
                     .then(function (response) {
                         status = response.status;
                         data = response.data;
-                        console.log(`Result:   ${i + 1}: ${status} - ${site}`);
+                        console.log(`Result:   ${i + 1} - ${status} - ${site}`);
                         if (isDebug) { //for debug purposes
                             console.log(data);
                         }
@@ -28,6 +28,7 @@ describe(`Check-Websites-Status`, function () {
                     .catch(function (error) {
                         status = error.response.status;
                         data = error.response.data;
+                        console.log(`Error:    ${i + 1} - ${status} - ${site}`);
                         if (isDebug) console.log(status); //for debug purposes
                     })
                     .then(function () {
