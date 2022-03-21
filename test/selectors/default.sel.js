@@ -8,17 +8,18 @@ export default {
     txtEmailPhone: `#signup_emailOrPhone`,
     txtPassword: `#signup_password`,
     chkNonProfit: `//span[contains(text(),'I work at a nonprofit')]`, // unnecessary?
-    chkBox: `input[type="checkbox"]`, // generic
+    chkBox: `//input[type="checkbox"]`, // generic
     txtLocationSetters: `*[id*="location_setter"]`,
-    langEnglish: `label[value="en"]`,
-    langSpanish: `label[value="es"]`,
-    txtFirstName: `input[placeholder="First name"][class="form-control form-control-top float_label ng-not-modified"]`,
-    txtLastName: `input[placeholder="Last name"][class="form-control form-control-middle float_label ng-not-modified"]`,
+    langEnglish: `//label[value="en"]`,
+    langSpanish: `//label[value="es"]`,
+    txtFirstName: `//input[@placeholder='First name' and @aria-hidden='false']`,
+    txtLastName: `//input[@placeholder='Last name' and @aria-hidden='false']`,
     txtOrg: `#org-search_value`,
-    txtPosition: `input[placeholder="Position"][class="form-control form-control-middle float_label ng-not-modified"]`,
-    txtPhone: `div[ng-if="hasEmail()"]`, // `input[ui-mask="999-999-9999"]`,
+    txtPosition: `//input[@placeholder="Position" and @aria-hidden="false"]`,
+    txtPhone: `//input[@placeholder='Cell phone' and @aria-hidden='false']`, // `input[ui-mask="999-999-9999"]`,
     ddDOBDay: `//button[contains(text(),'Day')]`,
     ddDOBMonth: `//button[contains(text(),'Month')]`,
     ddDOBYear: `//button[contains(text(),'Year')]`,
+    ddArray: `//ul[@class='dropdown-menu']`, // [1] = Day, [2] = Month, [3] = Year
 
 }

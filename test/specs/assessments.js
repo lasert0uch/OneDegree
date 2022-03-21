@@ -13,14 +13,15 @@ describe('Assessment-Tests', () => {
 
     it('Create-Account', async () => {
         await assessments.createAccount(data);
+        // await browser.debug();
     })
 
-    it('Diabetes-Assessment', async () => {
+    it('Diabetes-Risk-Assessment', async () => {
         await assessments.diabetes();
     })
 
-    // it('Click-Page-Two-Buttons', async () => {
-    //     await assessments.buttons2();
-    // })
+    it('HIV-Risk-Assessment', async () => {
+        await assessments.hivRisk();
+    })
 
 })

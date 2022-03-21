@@ -15,12 +15,12 @@ describe(`Check-Websites-Status`, function () {
             let data;
 
             before((done) => {
-                console.log(`Checking: ${i + 1} - ${site}`);
+                console.log(`Checking: ${i + 1} - ${site}`); // Logging checking website
                 axios.get(site)
                     .then(function (response) {
                         status = response.status;
                         data = response.data;
-                        console.log(`Result:   ${i + 1} - ${status} - ${site}`);
+                        // console.log(`Result:   ${i + 1} - ${status} - ${site}`); // Not logging positive results
                         if (isDebug) { //for debug purposes
                             console.log(data);
                         }
