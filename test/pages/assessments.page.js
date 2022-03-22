@@ -1,46 +1,14 @@
 import Base from './base.page';
 import sel from '../selectors/assessments_diabetes-risk.sel';
 import help from "../helpers/helpers"
-
-const data = {
-    firstName: help.randomFirstNameFemale(),
-    lastName: help.randomLastName(),
-    email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
-    password: 'Password1*',
-    loc: 'Los Angeles, CA, USA',
-    org: null, // 'SBCC Thrive LA', 'One Degree'
-    position: 'Automation Wizard',
-    lang: 'English',
-    dobDay: '10',
-    dobMonth: 'January',
-    dobYear: '2001',
-    gender: 'Female',
-    // Diabetes Risk
-    familyDiabetes: 'Yes',
-    highBP: 'Yes',
-    active: 'No',
-    weight: '320',
-    heightFt: '5',
-    heightIn: '5',
-    // HIV Risk
-    hivAids: 'No',
-    sexuallyActive: 'Previously. I have not had sex for at least 3 months.', // 'Yes', 'No', 'Previously. I have not had sex for at least 3 months.'
-    hadStds: ['Chlamydia', 'Gonorrhea', 'Syphilis'], // ['Chlamydia', 'Gonorrhea','Syphilis','None of the above']
-    sexWorker: 'Yes',
-    partnerSexWithMen: 'Yes', // Only asked if Female
-    methUse: 'Yes',
-    ivDrugs: 'Yes',
-    zipCode: '90001',
-
-}
-
-
+import scenarios from '../data/assessments.data'
 
 class Assessments extends Base {
 
     constructor() {
         super();
-        this.data = data;
+        this.diabetes = scenarios.Diabetes;
+        this.hiv = scenarios.HIV;
     }
 
     async checkPage() {
@@ -52,12 +20,84 @@ class Assessments extends Base {
         await browser.pause(500);
         await $(sel.menuAssessments).click();
         await this.checkPage();
-
     }
 
-    async diabetes() {
-        await this.selectOneFromArray(await $$(sel.labelLinks), `Diabetes Risk`);
-        if (data.org) {
+    async hivRisk(data, i) {
+        await $(sel.hivRisk).click();
+        if (i > 0) {
+            await browser.pause(3000);
+            await $(sel.restartAssessment).waitForDisplayed();
+            await $(sel.restartAssessment).click();
+        }
+        if (data.org) { // TODO: Needs to be dynamic
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Is PrEP right for me? PrEP might be right for you if you are HIV negative and are at high risk of being exposed to HIV.`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), 'This is for myself');
+        } else {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
+        await expect(await $(sel.txtH3)).toHaveText(`Have you ever been diagnosed with HIV or AIDS?`); // Question #1
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.hivAids);
+        if (data.hivAids !== 'Yes') {
+            await expect(await $(sel.txtH3)).toHaveText(`Are you sexually active?`); // Question #2
+            await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexuallyActive);
+            if (data.sexuallyActive === 'Yes') {
+                await expect(await $(sel.txtH3)).toHaveText(`How many total sexual partners have you had within the past 3 months?`); // Question #2a
+                await $(sel.numberBox).setValue(data.sexPartnersTotal);
+                await $(sel.btnContinue).click();
+                await expect(await $(sel.txtH3)).toHaveText(`How many new sexual partners have you had within the past 3 months?`); // Question #2b
+                await $(sel.numberBox).setValue(data.sexPartnersNew);
+                await $(sel.btnContinue).click();
+                await expect(await $(sel.txtH3)).toHaveText(`How many sexual partners have you met through dating app(s) within the past 3 months?`); // Question #2c
+                await $(sel.numberBox).setValue(data.sexPartnersDatingApp);
+                await $(sel.btnContinue).click();
+                await expect(await $(sel.txtH3)).toHaveText(`Have you had sex with an HIV positive partner(s) within the past 3 months?`); // Question #3
+                await this.selectOneFromArray(await $$(sel.rdoButtons), data.hivPosPartners);
+                if (data.hivPosPartners === 'Yes') {
+                    await expect(await $(sel.txtH3)).toHaveText(`How many HIV positive partners have you had within the past 3 months ?`); // Question #3a
+                    await $(sel.numberBox).setValue(data.hivPosPartnersNum);
+                    await $(sel.btnContinue).click();
+                }
+                await expect(await $(sel.txtH3)).toHaveText(`Do you always wear condoms when having sex?`); // Question #4
+                await this.selectOneFromArray(await $$(sel.rdoButtons), data.condomsAlways);
+                if (data.condomsAlways === 'No') {
+                    await expect(await $(sel.txtH3)).toHaveText(`The partner receiving the penis in the anus is having anal receptive sex. Have you had condomless anal receptive sex?`); // Question #4a
+                    await this.selectOneFromArray(await $$(sel.rdoButtons), data.condomlessAnalRec);
+                    await expect(await $(sel.txtH3)).toHaveText(`Have you had sex while being "high" or under the influence of drugs or alcohol?`); // Question #4b
+                    await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexOnDrugs);
+                }
+            }
+            if (data.sexuallyActive !== 'No') {
+                await expect(await $(sel.txtH3)).toHaveText(`Have you ever had (check all that apply)`); // Question #5
+                await this.selectMultipleFromArray(await $$(sel.rdoCheckList), data.hadStds);
+                await $(sel.btnContinue).click();
+                await expect(await $(sel.txtH3)).toHaveText(`Have you ever exchanged sex for money, drugs, or other goods?`); // Question #6
+                await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexWorker);
+                await expect(await $(sel.txtH3)).toHaveText(`Are you male or female?`); // Question #7
+                await this.selectOneFromArray(await $$(sel.rdoButtons), data.gender);
+                if (data.gender === 'Female') {
+                    await expect(await $(sel.txtH3)).toHaveText(`If your partner is male, does he also have sex with men?`); // Question #7a
+                    await this.selectOneFromArray(await $$(sel.rdoButtons), data.partnerSexWithMen);
+                }
+            }
+            await expect(await $(sel.txtH3)).toHaveText(`Have you used Methamphitamines (ex: speed, crystal) in the past year?`); // Question #8
+            await this.selectOneFromArray(await $$(sel.rdoButtons), data.methUse);
+            await expect(await $(sel.txtH3)).toHaveText(`Do you use injection drugs?`); // Question #9
+            await this.selectOneFromArray(await $$(sel.rdoButtons), data.ivDrugs);
+            await expect(await $(sel.txtH3)).toHaveText(`Where are you located? This information lets us know which services are closest to you. Zip code (Required)`); // Question #10
+            await $(sel.inputBox).setValue(data.zipCode);
+            await $(sel.btnContinue).click();
+        }
+        await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
+        await $(sel.btnResults).click();
+        await browser.pause(5000);
+        await this.backToAssessments();
+    }
+
+
+    async diabetesRisk(data, i) {
+        await $(sel.diabetes).click();
+        if (data.org) { // TODO: Needs to be dynamic
             await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Learn if you're at risk for Type 2 diabetes by answering a few questions.`);
             await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
         } else await $(sel.btnGetStarted).click();
@@ -87,43 +127,8 @@ class Assessments extends Base {
         await $(sel.btnResults).click();
         await browser.pause(5000);
         await this.backToAssessments();
-        // await browser.debug();
     }
 
-    async hivRisk() {
-        await this.selectOneFromArray(await $$(sel.labelLinks), `HIV Risk`);
-        if (data.org) {
-            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Is PrEP right for me? PrEP might be right for you if you are HIV negative and are at high risk of being exposed to HIV.`);
-            await this.selectOneFromArray(await $$(sel.rdoButtons), 'This is for myself');
-        } else await $(sel.btnGetStarted).click();
-        await expect(await $(sel.txtH3)).toHaveText(`Have you ever been diagnosed with HIV or AIDS?`);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.hivAids);
-        await expect(await $(sel.txtH3)).toHaveText(`Are you sexually active?`);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexuallyActive);
-        await expect(await $(sel.txtH3)).toHaveText(`Have you ever had (check all that apply)`);
-        await this.selectMultipleFromArray(await $$(sel.rdoCheckList), data.hadStds);
-        await $(sel.btnContinue).click();
-        await expect(await $(sel.txtH3)).toHaveText(`Have you ever exchanged sex for money, drugs, or other goods?`);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexWorker);
-        await expect(await $(sel.txtH3)).toHaveText(`Are you male or female?`);
-        await browser.pause(200);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.gender);
-        if (data.gender === 'Female') {
-            await expect(await $(sel.txtH3)).toHaveText(`If your partner is male, does he also have sex with men?`);
-            await this.selectOneFromArray(await $$(sel.rdoButtons), data.partnerSexWithMen);
-        }
-        await expect(await $(sel.txtH3)).toHaveText(`Have you used Methamphitamines (ex: speed, crystal) in the past year?`);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.methUse);
-        await expect(await $(sel.txtH3)).toHaveText(`Do you use injection drugs?`);
-        await this.selectOneFromArray(await $$(sel.rdoButtons), data.ivDrugs);
-        await expect(await $(sel.txtH3)).toHaveText(`Where are you located? This information lets us know which services are closest to you. Zip code (Required)`);
-        await $(sel.inputBox).setValue(data.zipCode);
-        await $(sel.btnContinue).click();
-        await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
-        await $(sel.btnResults).click();
-        await browser.pause(5000);
-        await this.backToAssessments();
-    }
 
 
 }

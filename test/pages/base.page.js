@@ -2,18 +2,19 @@ import sel from "../selectors/default.sel";
 import help from "../helpers/helpers"
 
 const genericUser = {
-    firstName: help.randomFirstNameMale(),
+    firstName: help.randomFirstNameFemale(),
     lastName: help.randomLastName(),
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
+    phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles, CA, USA',
-    org: 'One Degree',
+    org: null, // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Automation Wizard',
     lang: 'English',
     dobDay: '10',
     dobMonth: 'January',
     dobYear: '2001',
-    gender: 'Male',
+    gender: 'Female',
 }
 class Base {
 
@@ -57,6 +58,7 @@ class Base {
             for (const textChoice of textChoices) {
                 if (text.includes(textChoice)) {
                     console.log(text);
+                    await elem.scrollIntoView();
                     await elem.click();
                 }
             }
@@ -129,7 +131,7 @@ class Base {
         }
         // await $(sel.txtPhone).click();
         // await browser.keys(data.phone.split(''))
-        // await $(sel.txtPhone).setValue(data.phone);
+        await $(sel.txtPhone).setValue(data.phone);
         await $(sel.ddDOBDay).click();
         await browser.pause(100);
         await $(`//a[text()='${data.dobDay}']`).click();

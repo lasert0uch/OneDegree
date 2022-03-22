@@ -1,5 +1,4 @@
 import assessments from '../pages/assessments.page';
-const data = assessments.data;
 
 describe('Assessment-Tests', () => {
 
@@ -12,16 +11,20 @@ describe('Assessment-Tests', () => {
     })
 
     it('Create-Account', async () => {
-        await assessments.createAccount(data);
-        // await browser.debug();
+        await assessments.createAccount(); // Generic Account (random)
     })
 
-    it('Diabetes-Risk-Assessment', async () => {
-        await assessments.diabetes();
-    })
+    assessments.diabetes.forEach((scenario, num) => {
+        it(`Diabetes-Risk-Assessment-Scenario-#${num + 1}`, async () => {
+            await assessments.diabetesRisk(scenario, num);
+        })
+    });
 
-    it('HIV-Risk-Assessment', async () => {
-        await assessments.hivRisk();
-    })
+    assessments.hiv.forEach((scenario, num) => {
+        it(`HIV-Risk-Assessment-Scenario-#${num + 1}`, async () => {
+            await assessments.hivRisk(scenario, num);
+        })
+    });
+
 
 })

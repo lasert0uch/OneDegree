@@ -2,8 +2,10 @@ export default {
     labelLinks: '.ng-scope.right-padding a',
     activeTab: '.ng-binding.active',
     txtTitle1: '.description.ng-binding',
+    heading: `//div[@class='title ng-binding']`,
     mainMenu: `.main-menu`,
     menuAssessments: `//span[contains(text(),'Assessments')]`,
+    restartAssessment: `//button[@ng-if="elementVisible('RestartButton')"]`,
     btnGetStarted: `//button[contains(text(),'Get started')]`,
     btnContinue: `//button[contains(text(),'Continue')]`,
     btnResults: `//button[contains(text(),'See your results')]`,
@@ -16,7 +18,13 @@ export default {
     endTitle: `.edit-title.ng-binding`,
     rdoButtons: `.radio`, // generic
     rdoCheckList: `.connected-radio-buttons li`,
-
-
-
+    btnYes: `//button[text()='Yes']`,
+    diabetes: `//a[contains(text(),'Diabetes Risk')]`,
+    depression: `//a[contains(text(),'Depression')]`,
+    foodInsecurity: `//a[contains(text(),'Food Insecurity')]`,
+    housingInsecurity: `//a[contains(text(),'Housing Insecurity')]`,
+    calFreshMediCal: `//a[contains(text(),'CalFresh and Medi-Cal Eligibility')]`,
+    housingHelper: `//a[contains(text(),'Housing Helper')]`,
+    covid19: `//a[contains(text(),'COVID-19 Resource Finder')]`,
+    hivRisk: `//a[contains(text(),'HIV Risk')]`,
 }
