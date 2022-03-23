@@ -1,28 +1,29 @@
 import assessments from '../pages/assessments.page';
+let org = false;
 
-describe('Assessment-Tests', () => {
+describe('Assessments', () => {
 
-    it('Open-Plan-Assessment', async () => {
+    it('Open-Assessments', async () => {
         await assessments.open('rbg', 'plan#assessments', 'demo:peoplefirst@');
     })
 
-    it('Check-Page', async () => {
-        await assessments.checkPage();
+    it('Check-Assessments-Page', async () => {
+        await assessments.checkPage()
     })
 
     it('Create-Account', async () => {
-        await assessments.createAccount(); // Generic Account (random)
+        org = await assessments.createAccount(); // Generic Account (random)
     })
 
-    assessments.diabetes.forEach((scenario, num) => {
-        it(`Diabetes-Risk-Assessment-Scenario-#${num + 1}`, async () => {
-            await assessments.diabetesRisk(scenario, num);
+    assessments.diabetes.forEach((scenario, num) => { // TODO: Build scenarios 'This is for someone else'
+        it(`Diabetes-Risk-Scenario-#${num + 1}`, async () => {
+            await assessments.diabetesRisk(scenario, num, org);
         })
     });
 
-    assessments.hiv.forEach((scenario, num) => {
-        it(`HIV-Risk-Assessment-Scenario-#${num + 1}`, async () => {
-            await assessments.hivRisk(scenario, num);
+    assessments.hiv.forEach((scenario, num) => { // TODO: Build scenarios 'This is for someone else'
+        it(`HIV-Risk-Scenario-#${num + 1}-${scenario.title}`, async () => {
+            await assessments.hivRisk(scenario, num, org);
         })
     });
 

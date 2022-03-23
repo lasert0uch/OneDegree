@@ -8,7 +8,7 @@ export default {
     txtEmailPhone: `#signup_emailOrPhone`,
     txtPassword: `#signup_password`,
     chkNonProfit: `//span[contains(text(),'I work at a nonprofit')]`, // unnecessary?
-    chkBox: `//input[type="checkbox"]`, // generic
+    chkBox: `//input[@type="checkbox"]`, // generic
     txtLocationSetters: `*[id*="location_setter"]`,
     langEnglish: `//label[value="en"]`,
     langSpanish: `//label[value="es"]`,

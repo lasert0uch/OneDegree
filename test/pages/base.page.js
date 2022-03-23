@@ -8,7 +8,7 @@ const genericUser = {
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles, CA, USA',
-    org: null, // null, 'SBCC Thrive LA', 'One Degree'
+    org: 'SBCC Thrive LA', // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Automation Wizard',
     lang: 'English',
     dobDay: '10',
@@ -17,6 +17,7 @@ const genericUser = {
     gender: 'Female',
 }
 class Base {
+
 
     open(server, path, auth) {
         server === undefined || !server ? server = 'www' : server;
@@ -43,8 +44,8 @@ class Base {
     async selectOneFromArray(objArr, textChoice) {
         for (const elem of objArr) {
             let text = await elem.getText();
-            text = text.toLowerCase();
-            if (text.includes(textChoice.toLowerCase())) {
+            // text = text.toLowerCase();
+            if (text.includes(textChoice)) {
                 console.log(text);
                 return await elem.click();
             }
@@ -104,8 +105,10 @@ class Base {
         await browser.switchToFrame(null);
         await $(sel.txtEmailPhone).setValue(data.email);
         await $(sel.txtPassword).setValue(data.password);
-        console.log({ email: data.email, passsword: data.password });
-        if (data.org) await $(sel.chkBox).click();
+        console.log({ email: data.email, password: data.password });
+        if (data.org) {
+            await $(sel.chkBox).click();
+        }
         await $(sel.btnCreateAccount).click();
         await browser.pause(3000);
         await $$(sel.txtLocationSetters)[1].setValue(data.loc);
@@ -144,6 +147,9 @@ class Base {
         await $(`//label[contains(text(),'${data.gender}')]`).click();
         await $(sel.btnContinue).click();
         await browser.switchToParentFrame();
+        if (data.org) {
+            return true
+        } else return false
         // await browser.pause(10000);
     }
 

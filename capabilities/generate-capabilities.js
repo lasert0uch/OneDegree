@@ -63,7 +63,7 @@ module.exports = function (environment) { // Environments are loaded into capabi
                     if (br !== 'Safari') {
                         capability.os = 'Windows';
                         capability['os_version'] = '10';
-                        capability['browserstack.selenium_version'] = '2.53.0'; // TODO: Unable to set version higher in BS to run latest Chrome
+                        // capability['browserstack.selenium_version'] = '2.53.0'; // Not necessary at this time
 
                         browserVersions.forEach(ver => {
                             res.push({ ...capability, browser_version: ver }); // Adds each object into the resuilts array

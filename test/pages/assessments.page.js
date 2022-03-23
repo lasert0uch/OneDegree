@@ -1,7 +1,6 @@
 import Base from './base.page';
-import sel from '../selectors/assessments_diabetes-risk.sel';
-import help from "../helpers/helpers"
-import scenarios from '../data/assessments.data'
+import sel from '../selectors/assessments.sel';
+import scenarios from '../data/assessments.data';
 
 class Assessments extends Base {
 
@@ -22,16 +21,17 @@ class Assessments extends Base {
         await this.checkPage();
     }
 
-    async hivRisk(data, i) {
+    async hivRisk(data, i, org) {
         await $(sel.hivRisk).click();
         if (i > 0) {
             await browser.pause(3000);
             await $(sel.restartAssessment).waitForDisplayed();
             await $(sel.restartAssessment).click();
         }
-        if (data.org) { // TODO: Needs to be dynamic
+        if (org) {
             await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Is PrEP right for me? PrEP might be right for you if you are HIV negative and are at high risk of being exposed to HIV.`);
             await this.selectOneFromArray(await $$(sel.rdoButtons), 'This is for myself');
+            if (i > 0) await $(sel.btnYes).click();
         } else {
             await $(sel.btnGetStarted).click();
             if (i > 0) await $(sel.btnYes).click();
@@ -95,12 +95,16 @@ class Assessments extends Base {
     }
 
 
-    async diabetesRisk(data, i) {
+    async diabetesRisk(data, i, org) {
         await $(sel.diabetes).click();
-        if (data.org) { // TODO: Needs to be dynamic
+        if (org) {
             await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Learn if you're at risk for Type 2 diabetes by answering a few questions.`);
             await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
-        } else await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        } else {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
         await expect(await $(sel.txtH3)).toHaveText(`What is your date of birth?`);
         const dob = await $$(sel.ddDOBSelectors);
         await dob[0].selectByVisibleText(data.dobDay);
