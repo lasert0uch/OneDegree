@@ -24,7 +24,9 @@ class Base {
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
         console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
-        return browser.url(`https://${auth}${server}.1degree.org/${path}`);
+        if (server === 'local') {
+            return browser.url(`http://localhost:3000/${path}`);
+        } else return browser.url(`https://${auth}${server}.1degree.org/${path}`);
     }
 
 
