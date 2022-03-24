@@ -21,6 +21,7 @@ class Base {
 
     open(server, path, auth) {
         server === undefined || !server ? server = 'www' : server;
+        server === 'local' ? server = '' : server;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
         if (server === 'local') {
