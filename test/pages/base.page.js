@@ -23,10 +23,13 @@ class Base {
         server === undefined || !server ? server = 'www' : server;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
-        console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
         if (server === 'local') {
-            return browser.url(`http://localhost:3000/${path}`);
-        } else return browser.url(`https://${auth}${server}.1degree.org/${path}`);
+            console.log(`URL Launched: http://${auth}localhost:3000/${path}`);
+            return browser.url(`http://${auth}localhost:3000/${path}`);
+        } else {
+            console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
+            return browser.url(`https://${auth}${server}.1degree.org/${path}`);
+        }
     }
 
 
@@ -46,9 +49,9 @@ class Base {
     async selectOneFromArray(objArr, textChoice) {
         for (const elem of objArr) {
             let text = await elem.getText();
-            // text = text.toLowerCase();
+            // text = text.toLowerCase(); // If needed, need to add to if statement below
             if (text.includes(textChoice)) {
-                console.log(text);
+                // console.log(text);
                 return await elem.click();
             }
         }
@@ -60,7 +63,7 @@ class Base {
             text.trim();
             for (const textChoice of textChoices) {
                 if (text.includes(textChoice)) {
-                    console.log(text);
+                    // console.log(text);
                     await elem.scrollIntoView();
                     await elem.click();
                 }
