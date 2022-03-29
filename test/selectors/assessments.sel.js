@@ -9,6 +9,7 @@ export default {
     btnGetStarted: `//button[contains(text(),'Get started')]`,
     btnContinue: `//button[contains(text(),'Continue')]`,
     btnResults: `//button[contains(text(),'See your results')]`,
+    btnEditAnswers: `//button[@ng-if="elementVisible('EditAnswersButton')"]`,
     txtH3: `//h3`,
     ddDOBSelectors: `.date-selectors .form-control`,
     rdoGenders: `.radio.ng-scope div`,
@@ -16,15 +17,17 @@ export default {
     numberBox: `//input[@type='number']`,
     inputBox: `//input[@type='text' and contains(@class, 'form-control')]`,
     endTitle: `.edit-title.ng-binding`,
-    rdoButtons: `.radio`, // generic
+    rdoButtons: `.radio`, // ! Generic
     rdoCheckList: `.connected-radio-buttons li`,
     btnYes: `//button[text()='Yes']`,
     diabetes: `//a[contains(text(),'Diabetes Risk')]`,
-    depression: `//a[contains(text(),'Depression')]`,
+    depression: `//a[@href='/assessments/depression']`,
     foodInsecurity: `//a[contains(text(),'Food Insecurity')]`,
-    housingInsecurity: `//a[contains(text(),'Housing Insecurity')]`,
-    calFreshMediCal: `//a[contains(text(),'CalFresh and Medi-Cal Eligibility')]`,
+    housingInsecurity: `//a[@href='/assessments/housing-insecurity']`,
+    calFreshMediCal: `//a[@href='/assessments/calfresh-and-medi-cal-eligibility']`,
     housingHelper: `//a[contains(text(),'Housing Helper')]`,
     covid19: `//a[contains(text(),'COVID-19 Resource Finder')]`,
     hivRisk: `//a[contains(text(),'HIV Risk')]`,
+    editAnswersArr: `.question-label.ng-binding`, // * Ex: $$(sel.editAnswersArr)
+    ddSelect: `//select`, // ! Generic
 }

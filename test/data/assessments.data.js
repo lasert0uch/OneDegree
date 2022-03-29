@@ -155,5 +155,70 @@ export default {
             ivDrugs: 'Yes',
             zipCode: '91790',
         },
-    ]
+    ],
+    depression: [
+        {
+            title: `You-ARE-at-risk-for-depression`,
+            lowInterest: 'Nearly every day', // 'Not at all', 'Several Days', 'More than one-half the days', 'Nearly every day', 
+            hopelessness: 'More than one-half the days', // 'Not at all', 'Several Days', 'More than one-half the days', 'Nearly every day', 
+        },
+        {
+            title: `You-are-NOT-at-risk-for-depression`,
+            lowInterest: 'Not at all', // 'Not at all', 'Several Days', 'More than one-half the days', 'Nearly every day', 
+            hopelessness: 'Not at all', // 'Not at all', 'Several Days', 'More than one-half the days', 'Nearly every day', 
+        },
+    ],
+    food: [
+        {
+            title: `You-may-be-food-insecure`,
+            enoughFoodMoney: 'Yes',
+            skippedMeals: 'Yes',
+        },
+        {
+            title: `You-are-NOT-food-insecure`,
+            enoughFoodMoney: 'No',
+            skippedMeals: 'No',
+        },
+    ],
+    housing: [
+        {
+            title: `You-are-housing-insecure`,
+            worried12mos: `Usually`, // 'Never', 'Sometimes', 'Usually', 'Always',
+        },
+        {
+            title: `You-are-likely-not-housing-insecure`,
+            worried12mos: `Never`, // 'Never', 'Sometimes', 'Usually', 'Always',
+        },
+    ],
+    calFreshMC: [
+        {
+            title: `All-Questions-Low-Income`,
+            zipCode: `90001`, // CA Zip Code
+            countyCA: `Los Angeles`, // 58 CA Counties
+            numPeople: `5`, // 1 - 9
+            numKids: `3`, // 1 - 9 (Under 19)
+            pregnant: `Yes`,
+            incomeMonthly: 0, // ! By Instance: 0 - 5
+            otherPeople: `Yes`,
+            mealsWithOthers: `Yes`,
+            mealsWithOthersNum: 2, // 0 - 9
+            othersIncomeMonthly: `500`,
+            UScitizen: `Yes`,
+        },
+        {
+            title: `Few-Questions-Low-Income`,
+            zipCode: `90001`, // CA Zip Code
+            countyCA: `Los Angeles`, // 58 CA Counties
+            numPeople: `5`, // 1 - 9
+            numKids: `3`, // 1 - 9 (Under 19)
+            pregnant: `No`,
+            incomeMonthly: 0, // ! By Instance: 0 - 5
+            otherPeople: `No`,
+            // mealsWithOthers: `Yes`,
+            // mealsWithOthersNum: 2, // 0 - 9
+            // othersIncomeMonthly: `500`,
+            UScitizen: `Yes`,
+        },
+    ],
+
 }

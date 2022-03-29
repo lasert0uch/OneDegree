@@ -7,19 +7,164 @@ class Assessments extends Base {
     constructor() {
         super();
         this.diabetes = scenarios.Diabetes;
+        this.depression = scenarios.depression;
+        this.food = scenarios.food;
+        this.housing = scenarios.housing;
+        this.calFreshMC = scenarios.calFreshMC;
         this.hiv = scenarios.HIV;
     }
 
-    async checkPage() {
-        await expect(await $(sel.activeTab)).toHaveText(`Assessments`);
+
+
+
+
+    async calFreshMediCal(data, i, org) {
+        await $(sel.calFreshMediCal).click();
+        if (i > 0 && org) {
+            await browser.pause(3000);
+            await $(sel.restartAssessment).waitForDisplayed();
+            await $(sel.restartAssessment).click();
+        } else if (i > 0 && !org) {
+            await browser.pause(3000);
+            await $(sel.btnEditAnswers).waitForDisplayed();
+            await $(sel.btnEditAnswers).click();
+        }
+        if (org) {
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`The following question asks about your housing. Please indicate whether or not the following describes your situation.`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
+            if (i > 0) await $(sel.btnYes).click();
+        } else if (i === 0) {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
+        if (i > 0 && !org) await this.editAnswers(`What is the zip code where you live?`);
+        await expect(await $(sel.txtH3)).toHaveText(`What is the zip code where you live?`);
+        await $(sel.inputBox).setValue(data.zipCode);
+        await $(sel.btnContinue).click();
+
+        if (i > 0 && !org) await this.editAnswers(`What county do you live in?`);
+        await expect(await $(sel.txtH3)).toHaveText(`What county do you live in?`);
+        await $(sel.ddSelect).selectByVisibleText(data.countyCA);
+        await $(sel.btnContinue).click();
+        if (i > 0 && !org) await this.editAnswers(`How many adults are in your immediate family?`);
+        await expect(await $(sel.txtH3)).toHaveText(`How many adults are in your immediate family?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.numPeople);
+        if (i > 0 && !org) await this.editAnswers(`How many kids under 19 are in your immediate family?`);
+        await expect(await $(sel.txtH3)).toHaveText(`How many kids under 19 are in your immediate family?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.numKids);
+        if (i > 0 && !org) await this.editAnswers(`Is anyone in your household pregnant?`);
+        await expect(await $(sel.txtH3)).toHaveText(`Is anyone in your household pregnant?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.pregnant);
+        if (i > 0 && !org) await this.editAnswers(`How much money did your immediate family make last month?`);
+        await expect(await $(sel.txtH3)).toHaveText(`How much money did your immediate family make last month?`);
+        await $$(sel.rdoButtons)[data.incomeMonthly].click();
+        if (i > 0 && !org) await this.editAnswers(`Does anyone other than your immediate family live in your household?`);
+        await expect(await $(sel.txtH3)).toHaveText(`Does anyone other than your immediate family live in your household?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.otherPeople);
+        if (data.otherPeople === 'Yes') {
+            if (i > 0 && !org) await this.editAnswers(`Do you prepare meals and share food costs with any of them?`);
+            await expect(await $(sel.txtH3)).toHaveText(`Do you prepare meals and share food costs with any of them?`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), data.mealsWithOthers);
+            if (data.mealsWithOthers === 'Yes') {
+                if (i > 0 && !org) await this.editAnswers(`If so, how many?`);
+                await expect(await $(sel.txtH3)).toHaveText(`If so, how many?`);
+                await $(sel.ddSelect).selectByVisibleText(data.mealsWithOthersNum);
+                await $(sel.btnContinue).click();
+                if (i > 0 && !org) await this.editAnswers(`What is the monthly gross income of these additional people?`);
+                await expect(await $(sel.txtH3)).toHaveText(`What is the monthly gross income of these additional people?`);
+                await $(sel.numberBox).setValue(data.othersIncomeMonthly);
+                await $(sel.btnContinue).click();
+            }
+        }
+        if (i > 0 && !org) await this.editAnswers(`Are you or anyone in your household a U.S. Citizen or U.S. National?`);
+        await expect(await $(sel.txtH3)).toHaveText(`Are you or anyone in your household a U.S. Citizen or U.S. National?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.UScitizen);
+        await this.endAssessment();
     }
 
-    async backToAssessments() {
-        await $(sel.mainMenu).click();
-        await browser.pause(500);
-        await $(sel.menuAssessments).click();
-        await this.checkPage();
+    async housingInsecurity(data, i, org) {
+        await $(sel.housingInsecurity).click();
+        if (i > 0 && org) {
+            await browser.pause(3000);
+            await $(sel.restartAssessment).waitForDisplayed();
+            await $(sel.restartAssessment).click();
+        } else if (i > 0 && !org) {
+            await browser.pause(3000);
+            await $(sel.btnEditAnswers).waitForDisplayed();
+            await $(sel.btnEditAnswers).click();
+        }
+        if (org) {
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`The following question asks about your housing. Please indicate whether or not the following describes your situation.`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
+            if (i > 0) await $(sel.btnYes).click();
+        } else if (i === 0) {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
+        if (i > 0 && !org) await this.editAnswers(0);
+        await expect(await $(sel.txtH3)).toHaveText(`How often in the past 12 months would you say you were worried or stressed about having enough money to pay your rent/mortgage?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.worried12mos);
+        await this.endAssessment();
     }
+
+
+    async foodInsecurity(data, i, org) {
+        await $(sel.foodInsecurity).click();
+        if (i > 0 && org) {
+            await browser.pause(3000);
+            await $(sel.restartAssessment).waitForDisplayed();
+            await $(sel.restartAssessment).click();
+        } else if (i > 0 && !org) {
+            await browser.pause(3000);
+            await $(sel.btnEditAnswers).waitForDisplayed();
+            await $(sel.btnEditAnswers).click();
+        }
+        if (org) {
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`The following questions can help you gauge your household needs and access to nutritious foods.`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
+            if (i > 0) await $(sel.btnYes).click();
+        } else if (i === 0) {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
+        if (i > 0 && !org) await this.editAnswers(0);
+        await expect(await $(sel.txtH3)).toHaveText(`Within the past 12 months, the food we bought just didn’t last, and we didn’t have money to get more.`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.enoughFoodMoney);
+        if (i > 0 && !org) await this.editAnswers(1);
+        await expect(await $(sel.txtH3)).toHaveText(`Within the past 12 months, we cut the size of our meals or skipped meals because there wasn’t enough money for food.`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.skippedMeals);
+        await this.endAssessment();
+    }
+
+
+    async depressionRisk(data, i, org) {
+        await $(sel.depression).click();
+        if (i > 0 && org) {
+            await browser.pause(3000);
+            await $(sel.restartAssessment).waitForDisplayed();
+            await $(sel.restartAssessment).click();
+        } else if (i > 0 && !org) {
+            await browser.pause(3000);
+            await $(sel.btnEditAnswers).waitForDisplayed();
+            await $(sel.btnEditAnswers).click();
+        }
+        if (org) {
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Answer two questions and find out if you're at risk for depression.`);
+            await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
+            if (i > 0) await $(sel.btnYes).click();
+        } else if (i === 0) {
+            await $(sel.btnGetStarted).click();
+            if (i > 0) await $(sel.btnYes).click();
+        }
+        if (i > 0 && !org) await this.editAnswers(0);
+        await expect(await $(sel.txtH3)).toHaveText(`Over the past two weeks, how often have you been bothered by little interest or pleasure in doing things?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.lowInterest);
+        if (i > 0 && !org) await this.editAnswers(1);
+        await expect(await $(sel.txtH3)).toHaveText(`Over the past two weeks, how often have you been bothered by feeling down, depressed, or hopeless?`);
+        await this.selectOneFromArray(await $$(sel.rdoButtons), data.hopelessness);
+        await this.endAssessment();
+    }
+
 
     async hivRisk(data, i, org) {
         await $(sel.hivRisk).click();
@@ -88,14 +233,11 @@ class Assessments extends Base {
             await $(sel.inputBox).setValue(data.zipCode);
             await $(sel.btnContinue).click();
         }
-        await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
-        await $(sel.btnResults).click();
-        await browser.pause(5000);
-        await this.backToAssessments();
+        await this.endAssessment();
     }
 
 
-    async diabetesRisk(data, i, org) {
+    async diabetesRisk(data, i, org) { // TODO: Need to handle multiple assessments
         await $(sel.diabetes).click();
         if (org) {
             await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Learn if you're at risk for Type 2 diabetes by answering a few questions.`);
@@ -126,13 +268,37 @@ class Assessments extends Base {
         await $$(sel.numberBox)[0].setValue(data.heightFt);
         await $$(sel.numberBox)[1].setValue(data.heightIn);
         await $(sel.btnContinue).click();
+        await this.endAssessment();
+    }
+
+    async checkPage() {
+        await expect(await $(sel.activeTab)).toHaveText(`Assessments`);
+    }
+
+    async backToAssessments() {
+        await $(sel.mainMenu).click();
+        await browser.pause(500);
+        await $(sel.menuAssessments).click();
+        await this.checkPage();
+    }
+
+    async editAnswers(selection) {
+        await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
+        if (typeof selection === 'string') {
+            await this.selectOneFromArray(await $$(sel.editAnswersArr), selection)
+        } else {
+            await $$(sel.editAnswersArr)[selection].click();
+        }
+    }
+
+    async endAssessment() {
         await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
         await browser.pause(1000);
         await $(sel.btnResults).click();
         await browser.pause(5000);
         await this.backToAssessments();
-    }
 
+    }
 
 
 }
