@@ -30,7 +30,7 @@ class Assessments extends Base {
             await $(sel.btnEditAnswers).click();
         }
         if (org) {
-            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`The following question asks about your housing. Please indicate whether or not the following describes your situation.`);
+            await expect(await $(sel.txtTitle1)).toHaveTextContaining(`You and your family might qualify for CalFresh and/or Medi-Cal.`);
             await this.selectOneFromArray(await $$(sel.rdoButtons), `This is for myself`);
             if (i > 0) await $(sel.btnYes).click();
         } else if (i === 0) {
@@ -285,7 +285,10 @@ class Assessments extends Base {
     async editAnswers(selection) {
         await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
         if (typeof selection === 'string') {
-            await this.selectOneFromArray(await $$(sel.editAnswersArr), selection)
+            let currentList = await this.processMapAsync(await $$(sel.editAnswersArr));
+            if (currentList.includes(slection)) {
+                await this.selectOneFromArray(await $$(sel.editAnswersArr), selection)
+            } else return false
         } else {
             await $$(sel.editAnswersArr)[selection].click();
         }
@@ -293,11 +296,12 @@ class Assessments extends Base {
 
     async endAssessment() {
         await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
+        // let res = await this.processMapAsync(await $$(sel.editAnswersArr));
         await browser.pause(1000);
         await $(sel.btnResults).click();
         await browser.pause(5000);
         await this.backToAssessments();
-
+        // return res;
     }
 
 

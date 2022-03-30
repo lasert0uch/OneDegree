@@ -1,6 +1,6 @@
 {
   "name": "onedegree-automation",
-  "version": "1.0.01",
+  "version": "1.1.0",
   "main": ".mocharc.js",
   "description": "One Degree Test Automation Framework",
   "private": false,
@@ -33,6 +33,7 @@
   },
   "keywords": [
     "test",
+    "async",
     "WebdriverIO",
     "mocha",
     "MochaJS",

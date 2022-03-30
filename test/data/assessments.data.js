@@ -205,20 +205,20 @@ export default {
             othersIncomeMonthly: `500`,
             UScitizen: `Yes`,
         },
-        {
-            title: `Few-Questions-Low-Income`,
-            zipCode: `90001`, // CA Zip Code
-            countyCA: `Los Angeles`, // 58 CA Counties
-            numPeople: `5`, // 1 - 9
-            numKids: `3`, // 1 - 9 (Under 19)
-            pregnant: `No`,
-            incomeMonthly: 0, // ! By Instance: 0 - 5
-            otherPeople: `No`,
-            // mealsWithOthers: `Yes`,
-            // mealsWithOthersNum: 2, // 0 - 9
-            // othersIncomeMonthly: `500`,
-            UScitizen: `Yes`,
-        },
+        // { 
+        //     title: `Few-Questions-Low-Income`,
+        //     zipCode: `90001`, // CA Zip Code
+        //     countyCA: `Los Angeles`, // 58 CA Counties
+        //     numPeople: `5`, // 1 - 9
+        //     numKids: `3`, // 1 - 9 (Under 19)
+        //     pregnant: `No`,
+        //     incomeMonthly: 0, // ! By Instance: 0 - 5
+        //     otherPeople: `No`,
+        //     // mealsWithOthers: `Yes`,
+        //     // mealsWithOthersNum: 2, // 0 - 9
+        //     // othersIncomeMonthly: `500`,
+        //     UScitizen: `Yes`,
+        // },
     ],
 
 }

@@ -8,7 +8,7 @@ const user = {
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles, CA, USA',
-    org: null, // null, 'SBCC Thrive LA', 'One Degree'
+    org: 'SBCC Thrive LA', // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Automation Wizard',
     lang: 'English',
     dobDay: '10',
@@ -56,11 +56,11 @@ describe('Assessments', () => {
         })
     });
 
-    // assessments.calFreshMC.forEach((scenario, num) => { // ! TODO: Needs work on Navigation and Multiple Scenarios
-    //     it(`CalFresh-Medi-Cal-Eligibility-Scenario-#${num + 1}-${scenario.title}`, async () => {
-    //         await assessments.calFreshMediCal(scenario, num, org);
-    //     })
-    // });
+    assessments.calFreshMC.forEach((scenario, num) => { // TODO: Handle Multi-Scenario Navigation
+        it(`CalFresh-Medi-Cal-Eligibility-Scenario-#${num + 1}-${scenario.title}`, async () => {
+            await assessments.calFreshMediCal(scenario, num, org);
+        })
+    });
 
     assessments.hiv.forEach((scenario, num) => {
         it(`HIV-Risk-Scenario-#${num + 1}-${scenario.title}`, async () => {

@@ -40,9 +40,10 @@ class Base {
                 let insertAction = await elem.getText(); // Value or action that will get inserted into array
                 responseArr.push(insertAction)  //  insertAction value is added into final response array 
             } catch (error) {
-                console.log('processMapAsync error:' + error);
+                console.log('processMapAsync() - error:' + error);
             }
         }))
+        // console.log(responseArr);
         return responseArr
     }
 
