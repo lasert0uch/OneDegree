@@ -28,11 +28,11 @@ module.exports = {
     reporter: 'spec',
     // 'reporter-option': ['configFile=multi-config.json'],
     require: '@babel/register',
-    retries: 1,
+    retries: 0,
     slow: '75',
     sort: false,
     spec: ['test/z_resourceManagement/statusChecker.js'], // the positional arguments!
-    timeout: '5s', // same as "timeout: '15000'"
+    timeout: '3s', // same as "timeout: '3000'"
     // timeout: false, // same as "'no-timeout': true" or "timeout: 0"
     'trace-warnings': true, // node flags ok
     ui: 'bdd',
