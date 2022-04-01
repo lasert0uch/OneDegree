@@ -56,7 +56,7 @@ describe('Assessments', () => {
         })
     });
 
-    assessments.calFreshMC.forEach((scenario, num) => { // TODO: Handle Multi-Scenario Navigation
+    assessments.calFreshMC.forEach((scenario, num) => { // TODO: Handle Multi-Scenario Navigation for non-afiliated users
         it(`CalFresh-Medi-Cal-Eligibility-Scenario-#${num + 1}-${scenario.title}`, async () => {
             await assessments.calFreshMediCal(scenario, num, org);
         })
