@@ -10,6 +10,7 @@ export default {
     btnContinue: `//button[contains(text(),'Continue')]`,
     btnResults: `//button[contains(text(),'See your results')]`,
     btnEditAnswers: `//button[@ng-if="elementVisible('EditAnswersButton')"]`,
+    txtH1: `//h1`,
     txtH3: `//h3`,
     ddDOBSelectors: `.date-selectors .form-control`,
     rdoGenders: `.radio.ng-scope div`,
@@ -30,4 +31,15 @@ export default {
     hivRisk: `//a[contains(text(),'HIV Risk')]`,
     editAnswersArr: `.question-label.ng-binding`, // * Ex: $$(sel.editAnswersArr)
     ddSelect: `//select`, // ! Generic
+
+
+    hhBtnNext: `//button[contains(text(),'Next')]`,
+    hhMultiBtn: `//button[contains(@class,'option-buttons')]`,
+    hhDDAge: `#age`,
+    hhLocation: `//input[contains(@class,'housing-helper-text-input')]`,
+    hhSpinner: `//div[@class='spinner']`,
+    hhStep1: `//h2[text()='Step 1']`,
+    hhStep2: `//h2[text()='Step 2']`,
+    hhStep3: `//h2[text()='Step 3']`,
+    hhRestartAssessment: `//button[text()='Restart']`,
 }

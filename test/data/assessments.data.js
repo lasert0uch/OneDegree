@@ -220,5 +220,37 @@ export default {
         //     UScitizen: `Yes`,
         // },
     ],
+    housingHelper: [
+        {
+            title: `NO-HOUSING-There-are-many-services-that-can-help-you`,
+            currentlyHaveHousing: 'No',
+            currentSituation: ['Looking for temporary shelter'], // 'Looking for temporary shelter', 'Looking for permanent housing'
+            age: '18 years or older', // 'Under 18 years', '18 years or older'
+            children: 'Yes', //'Yes', 'No'
+            issues3: ['Affording food', 'Paying for rent', 'Family conflict'], // ['Medical needs', 'Recently unemployed', 'Finding employment', 'Affording food', 'Paying for rent', 'Childcare costs', 'Mental health', 'Substance abuse', 'Paying for education', 'Family conflict'] or 'None of ther above'
+            cityOrZipCode: 'San Francisco, CA, USA',
+        },
+        {
+            title: `HAS-HOUSING-There-are-many-services-that-can-help-you`,
+            currentlyHaveHousing: 'Yes', // Answers different for currentSituation
+            currentSituation: ['Facing eviction', 'Looking for affordable housing'], // 'Facing eviction', 'Facing foreclosure', 'Looking for temporary shelter', 'Looking for affordable housing'
+            age: '18 years or older', // 'Under 18 years', '18 years or older'
+            children: 'Yes', //'Yes', 'No'
+            issues3: ['Recently unemployed', 'Finding employment', 'Paying for rent'], // ['Medical needs', 'Recently unemployed', 'Finding employment', 'Affording food', 'Paying for rent', 'Childcare costs', 'Mental health', 'Substance abuse', 'Paying for education', 'Family conflict'] or 'None of ther above'
+            cityOrZipCode: 'San Francisco, CA, USA',
+        },
+    ],
+    covid19: [
+        {
+            title: `All-Resources`,
+            resources: ['Unemployment benefits', 'Cash for food', 'Cash for utilities', 'Help to prevent eviction', 'COVID-19 vaccine information', 'Low-cost medical coverage', 'COVID-19 testing', 'Emotional and mental support', 'Childcare', 'Senior care', 'Help with distance learning'], // ['Unemployment benefits', 'Cash for food', 'Cash for utilities', 'Help to prevent eviction','COVID-19 vaccine information', 'Low-cost medical coverage', 'COVID-19 testing', 'Emotional and mental support','Childcare', 'Senior care', 'Help with distance learning']
+            cityOrZipCode: 'San Francisco, CA, USA',
+        },
+        {
+            title: `Only-Vaccine-and-Testing-Resources`,
+            resources: ['COVID-19 vaccine information', 'COVID-19 testing'], // ['Unemployment benefits', 'Cash for food', 'Cash for utilities', 'Help to prevent eviction','COVID-19 vaccine information', 'Low-cost medical coverage', 'COVID-19 testing', 'Emotional and mental support','Childcare', 'Senior care', 'Help with distance learning']
+            cityOrZipCode: 'San Francisco, CA, USA',
+        },
+    ],
 
 }

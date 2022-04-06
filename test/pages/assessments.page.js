@@ -12,9 +12,86 @@ class Assessments extends Base {
         this.housing = scenarios.housing;
         this.calFreshMC = scenarios.calFreshMC;
         this.hiv = scenarios.HIV;
+        this.housingHelper = scenarios.housingHelper;
+        this.covid19 = scenarios.covid19;
     }
 
 
+    async sarsCov2(data, i, org) {
+        await $(sel.covid19).click();
+        if (i > 0) {
+            await browser.pause(3000);
+            await $(sel.hhRestartAssessment).waitForDisplayed();
+            await $(sel.hhRestartAssessment).click();
+        }
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Welcome to the COVID-19 Resource Finder!`);
+        await this.selectMultipleFromArray(await $$(sel.hhMultiBtn), data.resources);
+        await $(sel.hhBtnNext).click();
+
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
+        await $(sel.hhLocation).setValue(data.cityOrZipCode);
+        await browser.pause(300);
+        await browser.keys(['\uE007']); // Enter
+        await browser.pause(300);
+        await $(sel.hhBtnNext).click();
+        await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'COVID-19 Resource Recommendations',
+            {
+                timeout: 15000,
+                timeoutMsg: 'COVID-19 Results took longer than 15s to display'
+            }
+        );
+        await browser.pause(2000);
+        const titles = await $$(`//h2`);
+        for (const item of titles) {
+            await item.scrollIntoView();
+            await browser.pause(300);
+        }
+        await this.backToAssessments();
+    }
+
+    async hHelper(data, i, org) {
+        await $(sel.housingHelper).click();
+        if (i > 0) {
+            await browser.pause(3000);
+            await $(sel.hhRestartAssessment).waitForDisplayed();
+            await $(sel.hhRestartAssessment).click();
+        }
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Welcome to the Housing Helper`);
+        await expect(await $(sel.txtH3)).toHaveTextContaining(`Do you currently have housing?`);
+        await $(`//button[contains(text(),'${data.currentlyHaveHousing}')]`).click();
+        await $(sel.hhBtnNext).click();
+
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Tell us about yourself`);
+        await this.selectMultipleFromArray(await $$(sel.hhMultiBtn), data.currentSituation);
+        if (data.age) await $(sel.hhDDAge).selectByVisibleText(data.age);
+        if (data.children) await $(`//button[contains(text(),'${data.children}')]`).click();
+        await $(sel.hhBtnNext).click();
+
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Are you facing any of these issues?`);
+        await this.selectMultipleFromArray(await $$(sel.hhMultiBtn), data.issues3);
+        await $(sel.hhBtnNext).click();
+
+        await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
+        await $(sel.hhLocation).setValue(data.cityOrZipCode);
+        await browser.pause(300);
+        await browser.keys(['\uE007']); // Enter
+        await browser.pause(300);
+        await $(sel.hhBtnNext).click();
+        await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'Your housing action plan',
+            {
+                timeout: 15000,
+                timeoutMsg: 'Housing Helper Results took longer than 15s to display'
+            }
+        );
+        await browser.pause(2000)
+        await $(sel.hhStep1).click();
+        await browser.pause(200)
+        await $(sel.hhStep2).click();
+        await browser.pause(200)
+        await $(sel.hhStep3).click();
+        await browser.pause(200)
+        await this.backToAssessments();
+    }
 
 
 

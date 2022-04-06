@@ -19,16 +19,16 @@ const genericUser = {
 class Base {
 
 
-    open(server, path, auth) {
+    async open(server, path, auth) {
         server === undefined || !server ? server = 'www' : server;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
         if (server === 'local') {
             console.log(`URL Launched: http://${auth}localhost:3000/${path}`);
-            return browser.url(`http://${auth}localhost:3000/${path}`);
+            return await browser.url(`http://${auth}localhost:3000/${path}`);
         } else {
             console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
-            return browser.url(`https://${auth}${server}.1degree.org/${path}`);
+            return await browser.url(`https://${auth}${server}.1degree.org/${path}`);
         }
     }
 
