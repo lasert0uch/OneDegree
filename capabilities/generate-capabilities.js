@@ -20,7 +20,7 @@ module.exports = function (environment) {
             maxInstances: 5,
             browserName: 'chrome',
             'goog:chromeOptions': {
-                args: ["--window-size=1265,1020"],
+                args: ["--window-size=1265,1030"],
                 excludeSwitches: ['enable-logging'],
                 prefs: { environment: envir },
             },

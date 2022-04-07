@@ -5,7 +5,7 @@ export default {
     heading: `//div[@class='title ng-binding']`,
     mainMenu: `.main-menu`,
     menuAssessments: `//span[contains(text(),'Assessments')]`,
-    restartAssessment: `//button[@ng-if="elementVisible('RestartButton')"]`,
+    restartAssessment: `button[ng-if="elementVisible('RestartButton')"]`,
     btnGetStarted: `//button[contains(text(),'Get started')]`,
     btnContinue: `//button[contains(text(),'Continue')]`,
     btnResults: `//button[contains(text(),'See your results')]`,
@@ -18,7 +18,8 @@ export default {
     numberBox: `//input[@type='number']`,
     inputBox: `//input[@type='text' and contains(@class, 'form-control')]`,
     endTitle: `.edit-title.ng-binding`,
-    rdoButtons: `.radio`, // ! Generic
+    rdoDivTxt: `.radio div`,
+    rdoButtons: `.radio`, // Generic
     rdoCheckList: `.connected-radio-buttons li`,
     btnYes: `//button[text()='Yes']`,
     diabetes: `//a[contains(text(),'Diabetes Risk')]`,
@@ -34,7 +35,7 @@ export default {
 
 
     hhBtnNext: `//button[contains(text(),'Next')]`,
-    hhMultiBtn: `//button[contains(@class,'option-buttons')]`,
+    hhMultiBtn: `.option-buttons`, // `//button[contains(@class,'option-buttons')]`
     hhDDAge: `#age`,
     hhLocation: `//input[contains(@class,'housing-helper-text-input')]`,
     hhSpinner: `//div[@class='spinner']`,

@@ -25,9 +25,8 @@ class Assessments extends Base {
             await $(sel.hhRestartAssessment).click();
         }
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Welcome to the COVID-19 Resource Finder!`);
-        await this.selectMultipleFromArray(await $$(sel.hhMultiBtn), data.resources);
+        await this.selectMultipleByInnerTextFromDOM(sel.hhMultiBtn, data.resources);
         await $(sel.hhBtnNext).click();
-
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
         await browser.pause(300);
@@ -247,8 +246,7 @@ class Assessments extends Base {
         await $(sel.hivRisk).click();
         if (i > 0) {
             await browser.pause(3000);
-            await $(sel.restartAssessment).waitForDisplayed();
-            await $(sel.restartAssessment).click();
+            await this.selectMultipleByInnerTextFromDOM(sel.restartAssessment, ['Restart Assessment'])
         }
         if (org) {
             await expect(await $(sel.txtTitle1)).toHaveTextContaining(`Is PrEP right for me? PrEP might be right for you if you are HIV negative and are at high risk of being exposed to HIV.`);
@@ -291,7 +289,7 @@ class Assessments extends Base {
             }
             if (data.sexuallyActive !== 'No') {
                 await expect(await $(sel.txtH3)).toHaveText(`Have you ever had (check all that apply)`); // Question #5
-                await this.selectMultipleFromArray(await $$(sel.rdoCheckList), data.hadStds);
+                await this.selectMultipleByInnerTextFromDOM(sel.rdoDivTxt, data.hadStds);
                 await $(sel.btnContinue).click();
                 await expect(await $(sel.txtH3)).toHaveText(`Have you ever exchanged sex for money, drugs, or other goods?`); // Question #6
                 await this.selectOneFromArray(await $$(sel.rdoButtons), data.sexWorker);
@@ -353,10 +351,18 @@ class Assessments extends Base {
     }
 
     async backToAssessments() {
-        await $(sel.mainMenu).click();
-        await browser.pause(500);
-        await $(sel.menuAssessments).click();
-        await this.checkPage();
+        const small = await this.smallPage();
+        if (small) {
+            await $(this.baseSel.smallMenuBtn).click();
+            await browser.pause(500);
+            await $(this.baseSel.smallAssessments).click();
+            await this.checkPage();
+        } else {
+            await $(sel.mainMenu).click();
+            await browser.pause(500);
+            await $(sel.menuAssessments).click();
+            await this.checkPage();
+        }
     }
 
     async editAnswers(selection) {

@@ -69,13 +69,26 @@ class Base {
         }
     }
 
+    async selectMultipleByInnerTextFromDOM(cssSelector, choices) {
+        // console.log(choices, cssSelector); // * For Debugging Purposes
+        await browser.execute((cssSelector, choices) => {
+            document.querySelectorAll(cssSelector).forEach(el => {
+                let choice = el.innerText.trim();
+                if (choices.includes(choice)) {
+                    // console.log(choice); // * Only Shows in DOM, NOT in Terminal
+                    el.click();
+                }
+            });
+        }, cssSelector, choices);
+    }
+
     async selectMultipleFromArray(objArr, textChoices) {
         for (const elem of objArr) {
             let text = await elem.getText();
             text.trim();
             for (const textChoice of textChoices) {
                 if (text.includes(textChoice)) {
-                    // console.log(text);
+                    // console.log(text); // * For Debugging Purposes...
                     await elem.scrollIntoView();
                     await elem.click();
                 }
@@ -120,8 +133,9 @@ class Base {
         const small = await this.smallPage();
         if (small) {
             await $(sel.smallMenuBtn).click();
-            await browser.pause(100);
+            await browser.pause(1000);
             await $(sel.smallSignUp).click();
+            await browser.pause(1000);
         } else await $(sel.signUp).click();
         await browser.pause(1000);
         await browser.switchToFrame(null);
@@ -133,7 +147,9 @@ class Base {
         }
         await $(sel.btnCreateAccount).click();
         await browser.pause(3000);
-        await $$(sel.txtLocationSetters)[1].setValue(data.loc);
+        if (small) {
+            $(sel.txtLocationSetters).setValue(data.loc)
+        } else await $$(sel.txtLocationSetters)[1].setValue(data.loc);
         await browser.pause(2000);
         await browser.keys(['\uE007']);
         if (data.lang === 'Spanish') await $(sel.langSpanish).click();

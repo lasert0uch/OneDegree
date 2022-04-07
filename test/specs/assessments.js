@@ -8,7 +8,7 @@ const user = {
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'San Francisco, CA, USA', // 'San Francisco, CA, USA', 'Los Angeles, CA, USA'
-    org: 'Sutter Health', // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
+    org: null, // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
     position: 'Social Worker',
     lang: 'English',
     dobDay: '10',
