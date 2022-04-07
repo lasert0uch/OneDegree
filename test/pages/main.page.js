@@ -16,18 +16,10 @@ class Main extends Base {
     }
 
     async buttons1() {
-        const buttons1 = await $$(sel.buttons1);
-        // console.log(await this.processMapAsync(buttons))
-        console.log(await this.processMapAsync(buttons1)) // logs [ 'Individual', 'Service Provider', 'Admin' ]
-        const text = await this.processMapAsync(buttons1);
-        await browser.pause(1000)
-        await buttons1[text.findIndex(el => el === 'Individual')].click();
+        await this.selectMultipleByInnerTextFromDOM(sel.buttons1, ['Individual'])
         await browser.pause(1000);
-
-        const buttons2 = await $$(sel.buttons2);
-        const selections = await this.objectsToTextandIds(buttons2); // Can't use most pairs, due to ID's with Spaces 
-        let programs = ['Laundry', 'Hygiene', 'Showers', 'Mail', 'Storage', 'Employment', 'Medical care', 'Child care', 'Foreclosure', 'Moving assistance', 'Short-term shelters',];
-        await this.clickItemsFromObject(selections, programs, 3);
+        let programs = ['Laundry', 'Hygiene', 'Showers', 'Mail', 'Storage', 'Employment', 'Medical care', 'Child care', 'Foreclosure', 'Moving assistance', 'Short-term shelters'];
+        await this.selectMultipleByInnerTextFromDOM(sel.buttons2, programs)
         await $(sel.next).click();
         await browser.pause(1000);
     }
@@ -40,7 +32,21 @@ class Main extends Base {
         await $$('.pac-container')[0].click();
         await browser.pause(100);
         await $(sel.seeResources).click();
-        await browser.pause(5000);
+        await browser.waitUntil(async () => (await $(sel.labelResults).isDisplayed()),
+            {
+                timeout: 60000,
+                timeoutMsg: ' Homeless Help Results took longer than 60s to display!'
+            }
+        );
+        await browser.pause(2000);
+        await $$('label[for*="section"]')[0].scrollIntoView();
+        await browser.pause(2000);
+        await $$('label[for*="section"]')[1].click();
+        await $$('label[for*="section"]')[1].scrollIntoView();
+        await browser.pause(2000);
+        await $$('label[for*="section"]')[2].click();
+        await $$('label[for*="section"]')[2].scrollIntoView();
+        await browser.pause(2000);
     }
 
 }

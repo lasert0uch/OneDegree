@@ -9,5 +9,6 @@ export default {
     youth: `//h4[text() = 'Youth']`,
     adult: `//h4[text() = 'Adult']`,
     location: `.search-input`,
-    seeResources: `//span[text() = 'See resources']`
+    seeResources: `//span[text() = 'See resources']`,
+    labelResults: `label[for="section1"]`,
 }

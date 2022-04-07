@@ -1,6 +1,6 @@
 import main from '../pages/main.page';
 
-describe('Main-Page-Tests', () => {
+describe('LAHIP-Homeless-Help-Test', () => {
 
     it('Open-Main-Page-LA', async () => {
         await main.open('floyd', 'lahip', 'demo:peoplefirst@');
@@ -10,11 +10,11 @@ describe('Main-Page-Tests', () => {
         await main.checkLogo();
     })
 
-    it('Click-All-Page-One-Buttons', async () => {
+    it('Click-Selected-UserType-and-Resources', async () => {
         await main.buttons1();
     })
 
-    it('Click-Page-Two-Buttons', async () => {
+    it('Input-Demographic-Information-and-Get-Results', async () => {
         await main.buttons2();
     })
 
