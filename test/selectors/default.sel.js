@@ -21,5 +21,8 @@ export default {
     ddDOBMonth: `//button[contains(text(),'Month')]`,
     ddDOBYear: `//button[contains(text(),'Year')]`,
     ddArray: `//ul[@class='dropdown-menu']`, // [1] = Day, [2] = Month, [3] = Year
-
+    smallMenuBtn: `//a[@class='btn']`,
+    smallAssessments: `//a[@href='/plan#assessments' and @ng-click='toggleSideBar()']`,
+    smallSignUp: `//a[@ng-click='openSignupModal(); toggleSideBar()']`, // `a[ng-click='openSignupModal(); toggleSideBar()']>i`  `//a[@ng-click='openSignupModal(); toggleSideBar()']`
+    smallDismissApp: `span.app-bar-dismiss`,
 }

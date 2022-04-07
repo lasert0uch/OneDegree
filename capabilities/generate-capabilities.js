@@ -11,7 +11,9 @@ function getTime() {
     return new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 }
 
-module.exports = function (environment) { // Environments are loaded into capabilities and read at runtime to open correct URL
+module.exports = function (environment) {
+    if (!environment) environment = ['rbg']
+    // Environments are loaded into capabilities and read at runtime to open correct URL
     if (!process.env.BS) { // For local runs, Chrome Only, for each environment
         let arrObj = []
         environment.forEach(envir => arrObj.push({
@@ -24,6 +26,7 @@ module.exports = function (environment) { // Environments are loaded into capabi
             },
             acceptInsecureCerts: true,
         }))
+        // return console.log(arrObj);
         return arrObj // Returns chrome-based objects for each environment
     } else {
         let newDevices = [];
@@ -75,8 +78,8 @@ module.exports = function (environment) { // Environments are loaded into capabi
 
         res.forEach(el => { // Adds general cability values to all objects sent to BrowserStack
             el.maxInstances = maxInst;
-            el.build = `OxC - ${testType} - ${getTime()}`;
-            el.project = 'OxC';
+            el.build = `1Degree - ${testType} - ${getTime()}`;
+            el.project = '1Degree';
             el['browserstack.timezone'] = 'Los_Angeles';
             el['browserstack.idleTimeout'] = 180;
         })
@@ -88,9 +91,7 @@ module.exports = function (environment) { // Environments are loaded into capabi
                 }
             }
         }
-
-        // console.log(res); Log the Array of Objects sent to BrowserStack
-
+        // console.log(res); // Log the Array of Objects sent to BrowserStack
         return res; // returns capabilities object for all devices, browsers, versions & resolutions for each environment
     }
 };

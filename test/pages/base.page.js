@@ -17,6 +17,9 @@ const genericUser = {
     gender: 'Female',
 }
 class Base {
+    constructor() {
+        this.baseSel = sel;
+    }
 
 
     async open(server, path, auth) {
@@ -31,6 +34,14 @@ class Base {
             return await browser.url(`https://${auth}${server}.1degree.org/${path}`);
         }
     }
+
+    async smallPage() {
+        const pageWidth = await $('html').getSize('width');
+        if (pageWidth < 992) {
+            return true;
+        } else return false;
+    }
+
 
 
     async processMapAsync(data, method) { // This is an example of handling map and forEach in JavaScript async
@@ -106,7 +117,12 @@ class Base {
 
     async createAccount(data) {
         if (!data) data = genericUser;
-        await $(sel.signUp).click();
+        const small = await this.smallPage();
+        if (small) {
+            await $(sel.smallMenuBtn).click();
+            await browser.pause(100);
+            await $(sel.smallSignUp).click();
+        } else await $(sel.signUp).click();
         await browser.pause(1000);
         await browser.switchToFrame(null);
         await $(sel.txtEmailPhone).setValue(data.email);

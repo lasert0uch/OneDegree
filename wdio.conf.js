@@ -1,4 +1,4 @@
-// const genCap = require('./capabilities/generate-capabilities');
+const genCap = require('./capabilities/generate-capabilities');
 const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops at every test failure
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
 const mochaBail = process.env.BAIL === 'true' ? true : false; // Abort ("bail") after first test failure
@@ -61,24 +61,7 @@ const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            args: ["--window-size=1265,1020"],
-            excludeSwitches: ['enable-logging'],
-        },
-        acceptInsecureCerts: true
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    capabilities: genCap(),
     //
     // ===================
     // Test Configurations
