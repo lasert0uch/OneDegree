@@ -1,6 +1,6 @@
-const browsers = process.env.BROWSERS === undefined ? ['Chrome', 'Safari', 'Edge'] : process.env.BROWSERS.split(', ');
-const browserVersions = process.env.VERSIONS === undefined ? ['latest', 'latest - 1'] : process.env.VERSIONS.split(', ');
-const resolutions = process.env.RES === undefined ? ['1920x1080', '1024x768', '1366x768'] : process.env.RES.split(', ');
+const browsers = process.env.BROWSERS === undefined ? ['Chrome'] : process.env.BROWSERS.split(', '); // ['Chrome', 'Safari', 'Edge']
+const browserVersions = process.env.VERSIONS === undefined ? ['latest'] : process.env.VERSIONS.split(', '); // ['latest', 'latest - 1']
+const resolutions = process.env.RES === undefined ? ['1920x1080'] : process.env.RES.split(', '); // ['1920x1080', '1024x768', '1366x768']
 const maxInst = process.env.BROWSER_INSTANCES === undefined ? 5 : +process.env.BROWSER_INSTANCES;
 const testType = process.env.TYPE === undefined ? 'Local' : process.env.TYPE;
 const chromeOnly = process.env.CHROME === undefined ? false : process.env.CHROME;

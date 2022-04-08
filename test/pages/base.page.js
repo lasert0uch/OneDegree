@@ -7,9 +7,9 @@ const genericUser = {
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
-    loc: 'Los Angeles, CA, USA',
+    loc: 'Los Angeles',
     org: 'SBCC Thrive LA', // null, 'SBCC Thrive LA', 'One Degree'
-    position: 'Automation Wizard',
+    position: 'Social Worker',
     lang: 'English',
     dobDay: '10',
     dobMonth: 'January',
@@ -114,16 +114,9 @@ class Base {
         return resultObj
     }
 
-    async clickItemsFromObject(obj, arr, up) { // runs through array of object's keys for ID's to click. Optional UpArrow kep presses
-        let ups = [];
-        if (up > 0) {
-            for (let i = 1; i <= up; i++) {
-                ups.push('\ue013');
-            }
-        }
+    async clickItemsFromObject(obj, arr) { // runs through array of object's keys for ID's to click. Optional UpArrow kep presses
         for (const el of arr) {
             console.log(`'${el}': '${obj[el]}'`); // Log key:value pair of selection
-            if (up > 0) await browser.keys(ups);
             await $(obj[el]).click(); // Click item
         }
     }
@@ -151,19 +144,17 @@ class Base {
             $(sel.txtLocationSetters).setValue(data.loc)
         } else await $$(sel.txtLocationSetters)[1].setValue(data.loc);
         await browser.pause(2000);
-        await browser.keys(['\uE007']); // ! TODO: Issues in Mobile - Not Supported
+        await $(`//span[text()='${data.loc}']`).click();
         if (data.lang === 'Spanish') await $(sel.langSpanish).click();
         await $(sel.btnContinue).click();
-        // await $(sel.txtFirstName).setValue(data.firstName);
-        // await $(sel.txtLastName).setValue(data.lastName);
         if (data.org) {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
             await $(sel.txtOrg).setValue(data.org);
             await browser.pause(5000);
-            await browser.keys(['\ue013']);
-            await browser.keys(['\uE007']);
+            await $(`//div[text()='${data.org}']`).click();
             await $(sel.txtPosition).setValue(data.position);
+            await $(sel.btnConnect).scrollIntoView();
             await $(sel.btnConnect).click();
             await browser.pause(2000);
         } else {

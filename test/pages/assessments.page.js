@@ -29,9 +29,9 @@ class Assessments extends Base {
         await $(sel.hhBtnNext).click();
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
-        await browser.pause(300);
-        await browser.keys(['\uE007']); // Enter
-        await browser.pause(300);
+        await browser.pause(2000);
+        await $(`//span[text()='${data.cityOrZipCode}']`).click();
+        await browser.pause(1000);
         await $(sel.hhBtnNext).click();
         await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'COVID-19 Resource Recommendations',
             {
@@ -72,9 +72,9 @@ class Assessments extends Base {
 
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
-        await browser.pause(300);
-        await browser.keys(['\uE007']); // Enter
-        await browser.pause(300);
+        await browser.pause(2000);
+        await $(`//span[contains(text(),'${data.cityOrZipCode}')]`).click();
+        await browser.pause(1000);
         await $(sel.hhBtnNext).click();
         await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'Your housing action plan',
             {

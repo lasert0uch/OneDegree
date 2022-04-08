@@ -25,9 +25,9 @@ This is an Async JavaScript WebdriverIO and MochaJS project with the potential t
 - `DBS=true` ...Stops at the end of every test suite (defaults to false)
 - `BAIL=true` ...Aborts after first test failure (mocha "bail") - No more tests are run (defaults to false)
 - `BS=true` ...Triggers run on BrowserStack (or similar platform) - Requires `USER=<Your-BrowserStack-UserId> KEY=<Your-BrowserStack-Key>`
-- `BROWSERS=['Chrome', 'Safari', 'Edge']` ...Array of Browsers to be run on BrowserStack (Defaults as shown)
-- `VERSIONS=['latest', 'latest - 1']` ...Versions to be run on BrowserStack (Defaults as shown)
-- `RES=['1920x1080', '1024x768', '1366x768']` ...Resolutions to be run on BrowserStack (Defaults as shown)
+- `BROWSERS=['Chrome', 'Safari', 'Edge']` ...Array of Browsers to be run on BrowserStack (Defaults to `['Chrome']`)
+- `VERSIONS=['latest', 'latest - 1']` ...Versions to be run on BrowserStack (Defaults to `['latest']`)
+- `RES=['1920x1080', '1024x768', '1366x768']` ...Resolutions to be run on BrowserStack (Defaults to `['1920x1080']`)
 - `MAX_INSTANCES=5` ...Global max instances that can run (Defaults to 5)
 - `BROWSER_INSTANCES=5` ...Per Browser max instances that can run (Defaults as shown)
 - `TYPE=Local` ...Denotes Type of Run to be logged on BrowserStack (text)

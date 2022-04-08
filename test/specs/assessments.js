@@ -7,8 +7,8 @@ const user = {
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
-    loc: 'San Francisco, CA, USA', // 'San Francisco, CA, USA', 'Los Angeles, CA, USA'
-    org: null, // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
+    loc: 'San Francisco', // 'San Francisco', 'Los Angeles'
+    org: 'Sutter Health', // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
     position: 'Social Worker',
     lang: 'English',
     dobDay: '10',
