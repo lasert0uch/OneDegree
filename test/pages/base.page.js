@@ -151,7 +151,7 @@ class Base {
             $(sel.txtLocationSetters).setValue(data.loc)
         } else await $$(sel.txtLocationSetters)[1].setValue(data.loc);
         await browser.pause(2000);
-        await browser.keys(['\uE007']);
+        await browser.keys(['\uE007']); // ! TODO: Issues in Mobile - Not Supported
         if (data.lang === 'Spanish') await $(sel.langSpanish).click();
         await $(sel.btnContinue).click();
         // await $(sel.txtFirstName).setValue(data.firstName);
@@ -170,8 +170,6 @@ class Base {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
         }
-        // await $(sel.txtPhone).click();
-        // await browser.keys(data.phone.split(''))
         await $(sel.txtPhone).setValue(data.phone);
         await $(sel.ddDOBDay).click();
         await browser.pause(100);
@@ -188,7 +186,6 @@ class Base {
         if (data.org) {
             return true
         } else return false
-        // await browser.pause(10000);
     }
 
 

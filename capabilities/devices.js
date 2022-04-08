@@ -27,7 +27,7 @@ const devices = [
         "os_version": "10.0",
         "device": "Samsung Galaxy Note 20 Ultra",
         "real_mobile": "true",
-        "deviceOrientation": "landscape",
+        "deviceOrientation": "portrait",
         "browserName": "Android",
         resolution: '883x412'
     },
