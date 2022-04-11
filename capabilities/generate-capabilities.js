@@ -89,7 +89,7 @@ module.exports = function (environment) {
                 }
             }
         }
-        console.log(res); // Log the Array of Objects sent to BrowserStack
-        // return res; // returns capabilities object for all devices, browsers, versions & resolutions for each environment
+        // console.log(res); // Log the Array of Objects sent to BrowserStack
+        return res; // returns capabilities object for all devices, browsers, versions & resolutions for each environment
     }
 };
