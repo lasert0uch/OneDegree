@@ -31,14 +31,12 @@ module.exports = function (environment) {
     } else {
         let newDevices = [];
         environment.forEach(envir => { // Loops through environments array for each 'devices' object and creates new array with 'prefs' for each environment
-            if (envir != 'C2C') { // Skipping devices for C2C
-                devices.forEach(el => {
-                    el.prefs = {
-                        environment: envir,
-                    }
-                    newDevices.push(Object.assign({}, el))
-                })
-            }
+            devices.forEach(el => {
+                el.prefs = {
+                    environment: envir,
+                }
+                newDevices.push(Object.assign({}, el))
+            })
         })
         let res = [...newDevices]; // spreads newDevices array objects into result array
 
@@ -91,7 +89,7 @@ module.exports = function (environment) {
                 }
             }
         }
-        // console.log(res); // Log the Array of Objects sent to BrowserStack
-        return res; // returns capabilities object for all devices, browsers, versions & resolutions for each environment
+        console.log(res); // Log the Array of Objects sent to BrowserStack
+        // return res; // returns capabilities object for all devices, browsers, versions & resolutions for each environment
     }
 };
