@@ -133,6 +133,7 @@ class Assessments extends Base {
         await this.selectOneFromArray(await $$(sel.rdoButtons), data.pregnant);
         if (i > 0 && !org) await this.editAnswers(`How much money did your immediate family make last month?`);
         await expect(await $(sel.txtH3)).toHaveText(`How much money did your immediate family make last month?`);
+        await browser.pause(2000);
         await $$(sel.rdoButtons)[data.incomeMonthly].click();
         if (i > 0 && !org) await this.editAnswers(`Does anyone other than your immediate family live in your household?`);
         await expect(await $(sel.txtH3)).toHaveText(`Does anyone other than your immediate family live in your household?`);

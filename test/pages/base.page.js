@@ -29,6 +29,8 @@ class Base {
         if (serverForce) server = serverForce;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
+        if (server === 'greta') auth = 'clr:clrtest@';
+        if (server === 'floyd') auth = 'lacounty:findresources@';
         if (server === 'local') {
             console.log(`URL Launched: http://${auth}localhost:3000/${path}`);
             return await browser.url(`http://${auth}localhost:3000/${path}`);

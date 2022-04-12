@@ -19,7 +19,7 @@ const config = {
     // Specify Test Files
     // ==================
     specs: [
-        // './test/specs/od-la.js', // ! Only runs on 'floyd' env 
+        // './test/specs/od-la.js',
         './test/specs/assessments.js',
     ],
     // Patterns to exclude.
@@ -30,7 +30,6 @@ const config = {
     //
     // The number of times to retry the entire specfile when it fails as a whole
     specFileRetries: process.env.RETRY_FAILURES === undefined ? 0 : +process.env.RETRY_FAILURES,
-
     //
     // ============
     // Capabilities
@@ -53,11 +52,6 @@ const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: genCap(environment),
-    //
-    // ===================
-    // Test Configurations
-    // ===================
-    // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: logging,
@@ -120,9 +114,6 @@ const config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', ['allure', { outputDir: 'temp/allure-results' }]],
-
-
-
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
