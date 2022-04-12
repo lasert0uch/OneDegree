@@ -7,8 +7,8 @@ const user = {
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
-    loc: 'San Francisco', // 'San Francisco', 'Los Angeles'
-    org: 'Sutter Health', // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
+    loc: 'Los Angeles', // 'San Francisco', 'Los Angeles'
+    org: null, // null, 'SBCC Thrive LA', 'One Degree' 'Sutter Health'
     position: 'Social Worker',
     lang: 'English',
     dobDay: '10',
@@ -20,7 +20,7 @@ const user = {
 describe('Assessments', () => {
 
     it('Open-Assessments', async () => {
-        await assessments.open('rbg', 'plan#assessments', 'demo:peoplefirst@'); // TODO: Use environment variables from wdio.conf.js or base.page.js file
+        await assessments.open('plan#assessments', 'demo:peoplefirst@');
         // await browser.maximizeWindow();
     })
 

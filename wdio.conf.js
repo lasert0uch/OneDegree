@@ -3,6 +3,7 @@ const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops a
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
 const mochaBail = process.env.BAIL === 'true' ? true : false; // Abort ("bail") after first test failure
 const logging = process.env.LOGLEVEL === undefined ? 'silent' : process.env.LOGLEVEL; // Level of logging verbosity: trace | debug | info | warn | error | silent
+const environment = process.env.ENV === undefined ? ['rbg'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['chavez', 'davis', 'demo', 'floyd', 'greta', 'parks', 'rbg', 'www', 'local']
 
 
 
@@ -17,20 +18,8 @@ const config = {
     // ==================
     // Specify Test Files
     // ==================
-    // Define which test specs should run. The pattern is relative to the directory
-    // from which `wdio` was called.
-    //
-    // The specs are defined as an array of spec files (optionally using wildcards
-    // that will be expanded). The test for each spec file will be run in a separate
-    // worker process. In order to have a group of spec files run in the same worker
-    // process simply enclose them in an array within the specs array.
-    //
-    // If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
-    // then the current working directory is where your `package.json` resides, so `wdio`
-    // will be called from there.
-    //
     specs: [
-        // './test/specs/od-la.js',
+        // './test/specs/od-la.js', // ! Only runs on 'floyd' env 
         './test/specs/assessments.js',
     ],
     // Patterns to exclude.
@@ -38,7 +27,8 @@ const config = {
         // 'path/to/excluded/files'
     ],
     maxInstances: process.env.MAX_INSTANCES === undefined ? 5 : +process.env.MAX_INSTANCES,
-
+    //
+    // The number of times to retry the entire specfile when it fails as a whole
     specFileRetries: process.env.RETRY_FAILURES === undefined ? 0 : +process.env.RETRY_FAILURES,
 
     //
@@ -62,7 +52,7 @@ const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: genCap(),
+    capabilities: genCap(environment),
     //
     // ===================
     // Test Configurations
@@ -119,9 +109,6 @@ const config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
-    //
-    // The number of times to retry the entire specfile when it fails as a whole
-    // specFileRetries: 1,
     //
     // Delay in seconds between the spec file retry attempts
     // specFileRetriesDelay: 0,

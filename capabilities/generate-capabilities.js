@@ -12,7 +12,6 @@ function getTime() {
 }
 
 module.exports = function (environment) {
-    if (!environment) environment = ['rbg']
     // Environments are loaded into capabilities and read at runtime to open correct URL
     if (!process.env.BS) { // For local runs, Chrome Only, for each environment
         let arrObj = []

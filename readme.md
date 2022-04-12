@@ -16,10 +16,11 @@ This is an Async JavaScript WebdriverIO and MochaJS project with the potential t
 
 3.  run `npm test` (or `npm t`) to run active spec files listed in the `wdio.conf.js` file to execute on local browser `['Chrome']`
 
-4.  run `BS=true USER=<Your-BrowserStack-UserId> KEY=<Your-BrowserStack-Key> BAIL=true npm t` - Can also be LambdaTest or SauceLabs data
+4.  run `BS=true USER=<Your-BrowserStack-UserId> KEY=<Your-BrowserStack-Key> BAIL=true npm t` - (Can also be LambdaTest, SauceLabs, etc.)
 
 ### Notable Runtime Environment Variables for WebdriverIO:
 
+- `ENV="rbg, www, local"` ... Provides a csv list of environment(s) to run against (Defaults to current `wdio.conf.js` file setting)
 - `LOGLEVEL=info` ...Level of logging verbosity: trace | debug | info | warn | error | silent (defaults to silent)
 - `DBT=true` ...Stops at every test failure (defaults to false)
 - `DBS=true` ...Stops at the end of every test suite (defaults to false)

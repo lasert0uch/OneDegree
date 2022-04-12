@@ -18,12 +18,15 @@ const genericUser = {
 }
 class Base {
     constructor() {
+        this.url = this.environment();
         this.baseSel = sel;
+
     }
 
+    // ------------------ Open Page ------------------ //
 
-    async open(server, path, auth) {
-        server === undefined || !server ? server = 'www' : server;
+    async open(path, auth) {
+        let server = this.url;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
         if (server === 'local') {
@@ -35,6 +38,16 @@ class Base {
         }
     }
 
+    environment() {
+        if (process.env.BS) {
+            return browser.capabilities.prefs.environment;
+        } else {
+            return browser.capabilities['goog:chromeOptions'].prefs.environment;
+        }
+    }
+
+    // ------------------ Sizing ------------------ //
+
     async smallPage() {
         const pageWidth = await $('html').getSize('width');
         if (pageWidth < 992) {
@@ -42,7 +55,7 @@ class Base {
         } else return false;
     }
 
-
+    // ------------------ Core Selection Methods ------------------ //
 
     async processMapAsync(data, method) { // This is an example of handling map and forEach in JavaScript async
         let responseArr = [];
@@ -96,8 +109,6 @@ class Base {
         }
     }
 
-
-
     async objectsToTextandIds(objArr) { // This method returns text and ID of an Array of Objects (objArr) as an object
         let tempArr = [];
         for (const elem of objArr) {
@@ -120,6 +131,51 @@ class Base {
             await $(obj[el]).click(); // Click item
         }
     }
+
+
+    // ------------------ Platform Checks ------------------ //
+
+    desktopOnly() {
+        if (process.env.BS === 'true') {
+            return browser.capabilities.platform === 'WINDOWS' || browser.capabilities.platformName === 'macOS'
+        } else {
+            return true
+        }
+    }
+
+    chromeOnly() {
+        if (process.env.BS === 'true') {
+            return browser.capabilities.platform === 'WINDOWS' && browser.capabilities.browserName === 'chrome'
+        } else {
+            return true
+        }
+    }
+
+    iOSOnly() {
+        if (process.env.BS === 'true') {
+            return browser.capabilities.platformName === 'iOS'
+        } else {
+            return false
+        }
+    }
+
+    androidOnly() {
+        if (process.env.BS === 'true') {
+            return browser.capabilities.platformName === 'Android'
+        } else {
+            return false
+        }
+    }
+
+    safariOnly() {
+        if (process.env.BS === 'true') {
+            return browser.capabilities.platformName === 'macOS' && browser.capabilities.browserName === 'Safari'
+        } else {
+            return false
+        }
+    }
+
+    // ------------------ Create Account ------------------ //
 
     async createAccount(data) {
         if (!data) data = genericUser;
@@ -178,8 +234,6 @@ class Base {
             return true
         } else return false
     }
-
-
 
 }
 
