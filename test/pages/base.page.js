@@ -20,13 +20,13 @@ class Base {
     constructor() {
         this.url = this.environment();
         this.baseSel = sel;
-
     }
 
     // ------------------ Open Page ------------------ //
 
-    async open(path, auth) {
+    async open(path, auth, serverForce) {
         let server = this.url;
+        if (serverForce) server = serverForce;
         path === undefined || !path ? path = '' : path;
         auth === undefined || !auth ? auth = '' : auth; // username:password@
         if (server === 'local') {
@@ -39,7 +39,7 @@ class Base {
     }
 
     environment() {
-        if (process.env.BS) {
+        if (process.env.BS) { // Derives environment (in constructor), from each browser's capabilites for BrowserStack or local runs
             return browser.capabilities.prefs.environment;
         } else {
             return browser.capabilities['goog:chromeOptions'].prefs.environment;
