@@ -1,4 +1,4 @@
-const browsers = process.env.BROWSERS === undefined ? ['Chrome'] : process.env.BROWSERS.split(', '); // ['Chrome', 'Safari', 'Edge']
+const browsers = process.env.BROWSERS === undefined ? ['Firefox'] : process.env.BROWSERS.split(', '); // ['Chrome', 'Firefox', 'Safari', 'Edge']
 const browserVersions = process.env.VERSIONS === undefined ? ['latest'] : process.env.VERSIONS.split(', '); // ['latest', 'latest - 1']
 const resolutions = process.env.RES === undefined ? ['1920x1080'] : process.env.RES.split(', '); // ['1920x1080', '1024x768', '1366x768']
 const maxInst = process.env.BROWSER_INSTANCES === undefined ? 5 : +process.env.BROWSER_INSTANCES;
@@ -10,6 +10,8 @@ import devices from "./devices";
 function getTime() {
     return new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 }
+
+// ----------------------------- Capabilities Setup for BrowserStack or Local runs Only  ----------------------------- //
 
 module.exports = function (environment) {
     // Environments are loaded into capabilities and read at runtime to open correct URL
@@ -26,7 +28,7 @@ module.exports = function (environment) {
             acceptInsecureCerts: true,
         }))
         // return console.log(arrObj);
-        return arrObj // Returns chrome-based objects for each environment
+        return arrObj // Returns chrome capabilitiess for each environment
     } else {
         let newDevices = [];
         environment.forEach(envir => { // Loops through environments array for each 'devices' object and creates new array with 'prefs' for each environment
@@ -62,7 +64,7 @@ module.exports = function (environment) {
 
                     if (br !== 'Safari') {
                         capability.os = 'Windows';
-                        capability['os_version'] = '10';
+                        capability['os_version'] = '11';
                         // capability['browserstack.selenium_version'] = '2.53.0'; // Not necessary at this time
 
                         browserVersions.forEach(ver => {

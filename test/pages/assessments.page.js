@@ -74,7 +74,7 @@ class Assessments extends Base {
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
         await browser.pause(2000);
         await $(`//span[contains(text(),'${data.cityOrZipCode}')]`).click();
-        await browser.pause(1000);
+        await browser.pause(3000);
         await $(sel.hhBtnNext).click();
         await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'Your housing action plan',
             {

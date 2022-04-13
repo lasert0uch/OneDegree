@@ -26,6 +26,8 @@ const config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
+    //
+    // Global Max Instances
     maxInstances: process.env.MAX_INSTANCES === undefined ? 5 : +process.env.MAX_INSTANCES,
     //
     // The number of times to retry the entire specfile when it fails as a whole
@@ -38,14 +40,6 @@ const config = {
     // time. Depending on the number of capabilities, WebdriverIO launches several test
     // sessions. Within your capabilities you can overwrite the spec and exclude options in
     // order to group specific specs to a specific capability.
-    //
-    // First, you can define how many instances should be started at the same time. Let's
-    // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
-    // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
-    // files and you set maxInstances to 10, all spec files will get tested at the same time
-    // and 30 processes will get spawned. The property handles how many capabilities
-    // from the same test should run tests.
-    //
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -175,7 +169,6 @@ const config = {
         if (capabilities.os === 'Windows' || capabilities.os === 'OS X' && process.env.BS !== 'true') {
             await browser.maximizeWindow();
         }
-
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -219,20 +212,18 @@ const config = {
      */
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed && !test.pending) {
-
             //save a screenshot
             let fullName = `${test.parent}-${test.title}`;
             await browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
+            if (process.env.BS === 'true') {
+            }
 
-            //test debug feature
+            //test-level debug feature
             if (debugTest) {
                 await browser.debug();
             }
         }
-
     },
-
-
     /**
      * Hook that gets executed after the suite has ended
      * @param {Object} suite suite details
@@ -261,11 +252,11 @@ const config = {
     after: async function (result, capabilities, specs) {
         if (process.env.BS === 'true') {
             if (result === 0) {
-                console.log('Setting BrowserStack session status to "Good"...')
-                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "passed"}}');
+                console.log('Setting BrowserStack session status to "Good"...');
+                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "passed"}}');
             } else {
-                console.log('Setting BrowserStack session status to "Bad"...')
-                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "failed"}}');
+                console.log('Setting BrowserStack session status to "Bad"...');
+                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "failed"}}');
             }
         }
     },

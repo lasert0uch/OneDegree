@@ -1,13 +1,5 @@
 const devices = [
     {
-        "os_version": "9.0",
-        "device": "Samsung Galaxy Tab S6",
-        "real_mobile": "true",
-        "deviceOrientation": "portrait",
-        "browserName": "Android",
-        resolution: '712x1138'
-    },
-    {
         "os_version": "10.0",
         "device": "Samsung Galaxy Note 20 Ultra",
         "real_mobile": "true",
@@ -15,6 +7,14 @@ const devices = [
         "browserName": "Android",
         resolution: '412x753'
     },
+    // {
+    //     "os_version": "9.0",
+    //     "device": "Samsung Galaxy Tab S6",
+    //     "real_mobile": "true",
+    //     "deviceOrientation": "portrait",
+    //     "browserName": "Android",
+    //     resolution: '712x1138'
+    // },
     // {
     //     "os_version": "14",
     //     "device": "iPad Pro 12.9 2020",
