@@ -1,4 +1,5 @@
 export default {
+    locationSetter: `input[id^=location_setter]`,
     labelLinks: '.ng-scope.right-padding a',
     activeTab: '.ng-binding.active',
     txtTitle1: '.description.ng-binding',

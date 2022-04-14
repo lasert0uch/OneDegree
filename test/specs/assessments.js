@@ -29,6 +29,10 @@ describe('Assessments', () => {
         await browser.pause(1000)
     })
 
+    it('Set-Main-Location', async () => {
+        await assessments.setLocation(user)
+    })
+
     it('Create-Account', async () => {
         org = await assessments.createAccount(user);
     })
