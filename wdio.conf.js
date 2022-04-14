@@ -21,6 +21,7 @@ const config = {
     specs: [
         // './test/specs/od-la.js',
         './test/specs/assessments.js',
+        // './test/specs/resources.js',
     ],
     // Patterns to exclude.
     exclude: [
@@ -214,7 +215,7 @@ const config = {
         if (!passed && !test.pending) {
             //save a screenshot
             let fullName = `${test.parent}-${test.title}`;
-            await browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
+            await browser.saveScreenshot(`./screenshots/${fullName}.png`);
             if (process.env.BS === 'true') {
             }
 

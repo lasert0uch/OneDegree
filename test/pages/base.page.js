@@ -8,7 +8,7 @@ const genericUser = {
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles',
-    org: 'SBCC Thrive LA', // null, 'SBCC Thrive LA', 'One Degree'
+    org: null, // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Social Worker',
     lang: 'English',
     dobDay: '10',
@@ -24,13 +24,17 @@ class Base {
 
     // ------------------ Open Page ------------------ //
 
-    async open(path, auth, serverForce) {
+    async open(path, serverForce) {
+        let auth;
         let server = this.url;
         if (serverForce) server = serverForce;
         path === undefined || !path ? path = '' : path;
-        auth === undefined || !auth ? auth = '' : auth; // username:password@
-        if (server === 'greta') auth = 'clr:clrtest@';
-        if (server === 'floyd') auth = 'lacounty:findresources@';
+        // auth === undefined || !auth ? auth = '' : auth; // username:password@
+        if (server === 'greta') {
+            auth = 'clr:clrtest@';
+        } else if (server === 'floyd') {
+            auth = 'lacounty:findresources@';
+        } else auth = 'demo:peoplefirst@';
         if (server === 'local') {
             console.log(`URL Launched: http://${auth}localhost:3000/${path}`);
             return await browser.url(`http://${auth}localhost:3000/${path}`);

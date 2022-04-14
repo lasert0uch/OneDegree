@@ -3,7 +3,7 @@ import main from '../pages/main.page';
 describe('LAHIP-Homeless-Help-Test', () => {
 
     it('Open-Main-Page-LA', async () => {
-        await main.open('lahip', 'demo:peoplefirst@', 'floyd');
+        await main.open('lahip', 'floyd');
     })
 
     it('Check-Homeless-Help-Logo', async () => {

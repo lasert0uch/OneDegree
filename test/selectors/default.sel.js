@@ -25,4 +25,6 @@ export default {
     smallAssessments: `//a[@href='/plan#assessments' and @ng-click='toggleSideBar()']`,
     smallSignUp: `//a[@ng-click='openSignupModal(); toggleSideBar()']`, // `a[ng-click='openSignupModal(); toggleSideBar()']>i`  `//a[@ng-click='openSignupModal(); toggleSideBar()']`
     smallDismissApp: `span.app-bar-dismiss`,
+    defaultNavBar: `//div[@class='col-sm-12 area-tabs']`,
+    defaultRegionBtn: `//button[@ng-click='openUpdateRegionModal()']`,
 }

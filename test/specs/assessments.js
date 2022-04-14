@@ -20,7 +20,7 @@ const user = {
 describe('Assessments', () => {
 
     it('Open-Assessments', async () => {
-        await assessments.open('plan#assessments', 'demo:peoplefirst@');
+        await assessments.open('plan#assessments');
         // await browser.maximizeWindow();
     })
 
