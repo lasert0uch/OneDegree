@@ -215,7 +215,7 @@ const config = {
         if (!passed && !test.pending) {
             //save a screenshot
             let fullName = `${test.parent}-${test.title}`;
-            await browser.saveScreenshot(`./screenshots/${fullName}.png`);
+            await browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
             if (process.env.BS === 'true') {
             }
 

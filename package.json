@@ -1,6 +1,6 @@
 {
   "name": "onedegree-automation",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": ".mocharc.js",
   "description": "One Degree Test Automation Framework",
   "private": false,
@@ -8,8 +8,8 @@
     "test": "npm run prepare-temp && npx wdio run wdio.conf.js",
     "report-generate": "allure generate ./temp/allure-results -o ./temp/allure-report",
     "report-open": "allure open ./temp/allure-report",
-    "temp-clean": "rm -rf temp screenshots",
-    "temp-create": "mkdir temp screenshots",
+    "temp-clean": "rm -rf temp",
+    "temp-create": "(bash -c 'mkdir -p temp/screenshots')",
     "prepare-temp": "npm run temp-clean && npm run temp-create",
     "websites": "mocha 2>&1 | tee output.txt"
   },
