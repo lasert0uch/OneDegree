@@ -30,7 +30,7 @@ describe('Assessments', () => {
     })
 
     it('Set-Main-Location', async () => {
-        await assessments.setLocation(user)
+        await assessments.setDefaultLocation(user)
     })
 
     it('Create-Account', async () => {

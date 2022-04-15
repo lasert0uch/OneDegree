@@ -21,7 +21,7 @@ describe('Resources', () => {
 
     it('Create-Account', async () => {
         org = await resources.createAccount();
-        await browser.debug();
+        // await browser.debug();
     })
 
 })

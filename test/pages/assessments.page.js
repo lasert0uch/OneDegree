@@ -388,11 +388,9 @@ class Assessments extends Base {
         // return res;
     }
 
-    async setLocation(data) {
-        await $(sel.locationSetter).setValue(data.loc);
-        await browser.pause(500);
-        await $(`//span[text()='${data.loc}']`).click();
-        await browser.pause(500);
+    async setDefaultLocation(data) {
+        await this.setLocation(data);
+        await $(sel.assessments).click();
         await browser.refresh();
         await this.checkPage();
     }

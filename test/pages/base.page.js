@@ -241,6 +241,25 @@ class Base {
         } else return false
     }
 
+    async setLocation(data) {
+        const small = await this.smallPage();
+        if (small) {
+            await $(sel.smallMenuBtn).click();
+            await browser.pause(3000);
+            await $(sel.smallLocation).click();
+        }
+        await $(sel.locationSetter).setValue(data.loc);
+        await browser.pause(2000);
+        await $(`//span[text()='${data.loc}']`).click();
+        if (small) {
+            await $(sel.smallMenuBtn).click();
+            await browser.pause(2000);
+            if (await $(sel.smallDismissApp).isDisplayed()) await $(sel.smallDismissApp).click();
+        }
+        await browser.pause(500);
+    }
+
+
 }
 
 export default Base;

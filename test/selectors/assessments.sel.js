@@ -1,6 +1,7 @@
 export default {
     locationSetter: `input[id^=location_setter]`,
     labelLinks: '.ng-scope.right-padding a',
+    assessments: `a[href='/plan#assessments']`,
     activeTab: '.ng-binding.active',
     txtTitle1: '.description.ng-binding',
     heading: `//div[@class='title ng-binding']`,
