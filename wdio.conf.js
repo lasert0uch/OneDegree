@@ -1,10 +1,10 @@
+let fullName;
 const genCap = require('./capabilities/generate-capabilities');
 const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops at every test failure
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
 const mochaBail = process.env.BAIL === 'true' ? true : false; // Abort ("bail") after first test failure
 const logging = process.env.LOGLEVEL === undefined ? 'silent' : process.env.LOGLEVEL; // Level of logging verbosity: trace | debug | info | warn | error | silent
 const environment = process.env.ENV === undefined ? ['rbg'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['chavez', 'davis', 'demo', 'floyd', 'greta', 'parks', 'rbg', 'www', 'local']
-
 
 
 const config = {
@@ -214,7 +214,7 @@ const config = {
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed && !test.pending) {
             //save a screenshot
-            let fullName = `${test.parent}-${test.title}`;
+            fullName = `${test.parent}-${test.title}`;
             await browser.saveScreenshot(`./temp/screenshots/${fullName}.png`);
             if (process.env.BS === 'true') {
             }
@@ -254,10 +254,10 @@ const config = {
         if (process.env.BS === 'true') {
             if (result === 0) {
                 console.log('Setting BrowserStack session status to "Good"...');
-                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "passed"}}');
+                await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Passed"}}`, [result]);
             } else {
                 console.log('Setting BrowserStack session status to "Bad"...');
-                await browser.executeScript('browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "failed"}}');
+                await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "${fullName}"}}`, [result]);
             }
         }
     },
