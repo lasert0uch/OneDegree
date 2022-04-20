@@ -2,7 +2,7 @@ let fullName;
 const genCap = require('./capabilities/generate-capabilities');
 const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops at every test failure
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
-const mochaBail = process.env.BAIL === 'true' ? true : false; // Abort ("bail") after first test failure
+const mochaBail = process.env.BAIL === 'false' ? false : true; // Abort ("bail") after first test failure
 const logging = process.env.LOGLEVEL === undefined ? 'silent' : process.env.LOGLEVEL; // Level of logging verbosity: trace | debug | info | warn | error | silent
 const environment = process.env.ENV === undefined ? ['rbg'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['chavez', 'davis', 'demo', 'floyd', 'greta', 'parks', 'rbg', 'www', 'local']
 

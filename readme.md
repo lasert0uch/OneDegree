@@ -24,7 +24,7 @@ This is an Async JavaScript WebdriverIO and MochaJS project with the potential t
 - `LOGLEVEL=info` ...Level of logging verbosity: trace | debug | info | warn | error | silent (defaults to silent)
 - `DBT=true` ...Stops at every test failure (defaults to false)
 - `DBS=true` ...Stops at the end of every test suite (defaults to false)
-- `BAIL=true` ...Aborts after first test failure (mocha "bail") - No more tests are run (defaults to false)
+- `BAIL=false` ...Aborts a spec after first test failure (mocha "bail") - No more tests(it's) are run (defaults to true)
 - `BS=true` ...Triggers run on BrowserStack (or similar platform) - Requires `USER=<Your-BrowserStack-UserId> KEY=<Your-BrowserStack-Key>`
 - `BROWSERS="Chrome, Safari, Edge"` ...Array of Browsers to be run on BrowserStack (Defaults to `['Chrome']`)
 - `VERSIONS="latest, latest - 1"` ...Versions to be run on BrowserStack (Defaults to `['latest']`)
