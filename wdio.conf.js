@@ -21,7 +21,7 @@ const config = {
     specs: [
         // './test/specs/od-la.js',
         './test/specs/assessments.js',
-        // './test/specs/resources.js',
+        './test/specs/resources.js',
     ],
     // Patterns to exclude.
     exclude: [

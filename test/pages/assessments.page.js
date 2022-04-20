@@ -369,7 +369,7 @@ class Assessments extends Base {
     async editAnswers(selection) {
         await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
         if (typeof selection === 'string') {
-            let currentList = await this.processMapAsync(await $$(sel.editAnswersArr));
+            let currentList = await this.returnTextArrayLoop(sel.editAnswersArr);
             if (currentList.includes(slection)) {
                 await this.selectOneFromArray(await $$(sel.editAnswersArr), selection)
             } else return false
@@ -380,12 +380,10 @@ class Assessments extends Base {
 
     async endAssessment() {
         await expect(await $(sel.endTitle)).toHaveText(`Here's what you said:`);
-        // let res = await this.processMapAsync(await $$(sel.editAnswersArr));
         await browser.pause(1000);
         await $(sel.btnResults).click();
         await browser.pause(5000);
         await this.backToAssessments();
-        // return res;
     }
 
     async setDefaultLocation(data) {

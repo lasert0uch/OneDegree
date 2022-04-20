@@ -7,7 +7,7 @@ const genericUser = {
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
-    loc: 'Los Angeles',
+    loc: 'San Francisco', // 'San Francisco', 'Los Angeles'
     org: null, // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Social Worker',
     lang: 'English',
@@ -20,6 +20,7 @@ class Base {
     constructor() {
         this.url = this.environment();
         this.baseSel = sel;
+        this.genericUser = genericUser;
     }
 
     // ------------------ Open Page ------------------ //
@@ -37,10 +38,12 @@ class Base {
         } else auth = 'demo:peoplefirst@';
         if (server === 'local') {
             console.log(`URL Launched: http://${auth}localhost:3000/${path}`);
-            return await browser.url(`http://${auth}localhost:3000/${path}`);
+            await browser.url(`http://${auth}localhost:3000/${path}`);
+            return await browser.url(`http://localhost:3000/${path}`);
         } else {
             console.log(`URL Launched: https://${auth}${server}.1degree.org/${path}`);
-            return await browser.url(`https://${auth}${server}.1degree.org/${path}`);
+            await browser.url(`https://${auth}${server}.1degree.org/${path}`);
+            return await browser.url(`https://${server}.1degree.org/${path}`);
         }
     }
 
@@ -63,18 +66,29 @@ class Base {
 
     // ------------------ Core Selection Methods ------------------ //
 
-    async processMapAsync(data, method) { // This is an example of handling map and forEach in JavaScript async
+    async returnTextArrayMap(sel) { // How to handle Array.map in async, but can come out of order
+        sel = await $$(sel);
         let responseArr = [];
-        await Promise.all(data.map(async (elem) => {
+        await Promise.all(sel.map(async (elem) => {
             try {
                 let insertAction = await elem.getText(); // Value or action that will get inserted into array
                 responseArr.push(insertAction)  //  insertAction value is added into final response array 
             } catch (error) {
-                console.log('processMapAsync() - error:' + error);
+                console.log('returnTextArrayMap() - error:' + error);
             }
         }))
         // console.log(responseArr);
         return responseArr
+    }
+
+    async returnTextArrayLoop(sel) {
+        sel = await $$(sel);
+        let responseArr = [];
+        for (const el of sel) {
+            let elText = await el.getText();
+            responseArr.push(elText);
+        }
+        return responseArr;
     }
 
     async selectOneFromArray(objArr, textChoice) {
