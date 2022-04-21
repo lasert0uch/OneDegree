@@ -31,5 +31,5 @@ export default {
     smallDismissApp: `//i[@class="fa fa-w fa-close"]`,
     defaultNavBar: `//div[@class='col-sm-12 area-tabs']`,
     defaultRegionBtn: `//button[@ng-click='openUpdateRegionModal()']`,
-    loading: `i.fa.fa-spin.fa-refresh`, // 3
+    loading: `//div[@class="cg-busy cg-busy-animation ng-scope"]`,
 }

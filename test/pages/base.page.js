@@ -153,12 +153,12 @@ class Base {
     }
 
     async busyCheck() {
-        if (await $$(sel.loading)[0].isDisplayed() || await $$(sel.loading)[1].isDisplayed() || await $$(sel.loading)[2].isDisplayed()) {
-            console.log('LOADING...');
-            await browser.pause(2000);
-            console.log("Still LOADING...?")
+        if (await $(sel.loading).isDisplayed()) {
+            // console.log('LOADING...');
+            while (await $(sel.loading).isDisplayed()) {
+                await browser.pause(1000);
+            }
         }
-
     }
 
 
@@ -219,11 +219,12 @@ class Base {
         await browser.switchToFrame(null);
         await $(sel.txtEmailPhone).setValue(data.email);
         await $(sel.txtPassword).setValue(data.password);
-        console.log({ email: data.email, password: data.password });
         if (data.org) {
             await $(sel.chkBox).click();
         }
         await $(sel.btnCreateAccount).click();
+        this.busyCheck();
+        console.log({ email: data.email, password: data.password });
         await browser.pause(3000);
         if (small) {
             $(sel.txtLocationSetters).setValue(data.loc)
@@ -232,6 +233,7 @@ class Base {
         await $(`//span[text()='${data.loc}']`).click();
         if (data.lang === 'Spanish') await $(sel.langSpanish).click();
         await $(sel.btnContinue).click();
+        this.busyCheck();
         if (data.org) {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
@@ -242,6 +244,7 @@ class Base {
             await $(sel.btnConnect).scrollIntoView();
             await $(sel.btnConnect).click();
             await browser.pause(2000);
+            this.busyCheck();
         } else {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
@@ -258,6 +261,7 @@ class Base {
         await $(`//a[text()='${data.dobYear}']`).click();
         await $(`//label[contains(text(),'${data.gender}')]`).click();
         await $(sel.btnContinue).click();
+        this.busyCheck();
         await browser.switchToParentFrame();
         if (data.org) {
             return true
