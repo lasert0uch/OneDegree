@@ -11,12 +11,15 @@ describe('Resources', () => {
         await resources.checkPage()
     })
 
+    it('Click-Urgent', async () => {
+        await resources.goUrgent();
+    })
+
     it('Set-Location', async () => {
-        await resources.setLocation(resources.genericUser)
+        await resources.setLocation(resources.genericUser);
     })
 
     it('Browse-All-Resources', async () => {
-        await resources.goUrgent()
         await resources.browseAllCategories();
     })
 

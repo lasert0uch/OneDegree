@@ -14,13 +14,21 @@ class Resources extends Base {
 
     async goUrgent() {
         await this.selectMultipleByInnerTextFromDOM(sel.resourcesBar, ['Urgent']);
-        expect(await $(`//h1`)).toHaveText('Pick a category');
+        if (await this.smallPage()) {
+            expect(await $(sel.categoryName)).toHaveText('Urgent');
+        } else expect(await $(sel.h1)).toHaveText('Pick a category');
     }
 
     async browseAllCategories() {
-        await $(sel.btnBrowseResources).click();
-        await browser.pause(500);
-        await $(sel.browseAllCategories).click();
+        if (await $(sel.pancakes).isDisplayed()) {
+            await $(sel.pancakes).click();
+            await browser.pause(500);
+            await $(sel.browseAllCategoriesSmall).click();
+        } else {
+            await $(sel.btnBrowseResources).click();
+            await browser.pause(500);
+            await $(sel.browseAllCategories).click();
+        }
         await browser.pause(500);
     }
 
@@ -32,7 +40,9 @@ class Resources extends Base {
     async checkFlow(category) {
         console.log(category);
         let array1 = Object.keys(data[category]);
-        await this.selectOneFromArray(await $$(sel.mainResources), category);
+        if (await $(sel.mainResources).isDisplayed()) {
+            await this.selectOneFromArray(await $$(sel.mainResources), category);
+        } else await this.selectOneFromArray(await $$(sel.mainResourcesAlt), category);
         browser.pause(500);
         expect(await this.returnTextArrayLoop(sel.mainResources)).toEqual(array1);
         browser.pause(500);
@@ -44,7 +54,9 @@ class Resources extends Base {
                 expect(await this.returnTextArrayLoop(sel.mainResources)).toEqual(data[category][key]);
             }
             if (key !== 'See all') {
-                await $(sel.backBtn).click();
+                if (await $(sel.backBtnSmall).isDisplayed()) {
+                    await $(sel.backBtnSmall).click();
+                } else await $(sel.backBtn).click();
                 await browser.pause(500);
             } else {
                 await browser.pause(1000);

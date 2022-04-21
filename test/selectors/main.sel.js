@@ -11,4 +11,5 @@ export default {
     location: `.search-input`,
     seeResources: `//span[text() = 'See resources']`,
     labelResults: `label[for="section1"]`,
+    loading: `i.fa.fa-spin.fa-refresh`, // 3
 }

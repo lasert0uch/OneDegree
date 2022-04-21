@@ -76,13 +76,13 @@ class Assessments extends Base {
         await $(`//span[contains(text(),'${data.cityOrZipCode}')]`).click();
         await browser.pause(3000);
         await $(sel.hhBtnNext).click();
-        await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'Your housing action plan',
+        await browser.waitUntil(async () => await $(sel.hhStep1).isDisplayed(),
             {
-                timeout: 15000,
-                timeoutMsg: 'Housing Helper Results took longer than 15s to display'
+                timeout: 45000,
+                timeoutMsg: 'Housing Helper Results took longer than 45s to display'
             }
         );
-        await browser.pause(2000)
+        await browser.pause(5000);
         await $(sel.hhStep1).click();
         await browser.pause(200)
         await $(sel.hhStep2).click();

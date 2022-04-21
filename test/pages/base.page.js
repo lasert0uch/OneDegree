@@ -7,7 +7,7 @@ const genericUser = {
     email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
-    loc: 'San Francisco', // 'San Francisco', 'Los Angeles'
+    loc: 'Los Angeles', // 'San Francisco', 'Los Angeles'
     org: null, // null, 'SBCC Thrive LA', 'One Degree'
     position: 'Social Worker',
     lang: 'English',
@@ -150,6 +150,15 @@ class Base {
             console.log(`'${el}': '${obj[el]}'`); // Log key:value pair of selection
             await $(obj[el]).click(); // Click item
         }
+    }
+
+    async busyCheck() {
+        if (await $$(sel.loading)[0].isDisplayed() || await $$(sel.loading)[1].isDisplayed() || await $$(sel.loading)[2].isDisplayed()) {
+            console.log('LOADING...');
+            await browser.pause(2000);
+            console.log("Still LOADING...?")
+        }
+
     }
 
 
