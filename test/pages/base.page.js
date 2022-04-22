@@ -153,10 +153,11 @@ class Base {
     }
 
     async busyCheck() {
+        await browser.pause(100)
         if (await $(sel.loading).isDisplayed()) {
             // console.log('LOADING...');
             while (await $(sel.loading).isDisplayed()) {
-                await browser.pause(1000);
+                await browser.pause(100);
             }
         }
     }
@@ -204,6 +205,10 @@ class Base {
         }
     }
 
+    firefoxOnly() {
+        return process.env.BS && browser.capabilities.browserName === 'firefox';
+    }
+
     // ------------------ Create Account ------------------ //
 
     async createAccount(data) {
@@ -223,7 +228,7 @@ class Base {
             await $(sel.chkBox).click();
         }
         await $(sel.btnCreateAccount).click();
-        this.busyCheck();
+        await this.busyCheck();
         console.log({ email: data.email, password: data.password });
         await browser.pause(3000);
         if (small) {
@@ -233,7 +238,7 @@ class Base {
         await $(`//span[text()='${data.loc}']`).click();
         if (data.lang === 'Spanish') await $(sel.langSpanish).click();
         await $(sel.btnContinue).click();
-        this.busyCheck();
+        await this.busyCheck();
         if (data.org) {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
@@ -244,7 +249,7 @@ class Base {
             await $(sel.btnConnect).scrollIntoView();
             await $(sel.btnConnect).click();
             await browser.pause(2000);
-            this.busyCheck();
+            await this.busyCheck();
         } else {
             await $(sel.txtFirstName).setValue(data.firstName);
             await $(sel.txtLastName).setValue(data.lastName);
@@ -261,7 +266,7 @@ class Base {
         await $(`//a[text()='${data.dobYear}']`).click();
         await $(`//label[contains(text(),'${data.gender}')]`).click();
         await $(sel.btnContinue).click();
-        this.busyCheck();
+        await this.busyCheck();
         await browser.switchToParentFrame();
         if (data.org) {
             return true
