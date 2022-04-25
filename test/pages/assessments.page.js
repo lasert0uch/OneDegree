@@ -33,6 +33,8 @@ class Assessments extends Base {
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
         await browser.pause(2000);
+        await $(sel.hhLocation).addValue(' ');
+        await browser.pause(2000);
         await $(`//span[text()='${data.cityOrZipCode}']`).click();
         await browser.pause(1000);
         await $(sel.hhBtnNext).click();
@@ -81,6 +83,8 @@ class Assessments extends Base {
 
         await expect(await $(sel.txtH1)).toHaveTextContaining(`Where are you located?`);
         await $(sel.hhLocation).setValue(data.cityOrZipCode);
+        await browser.pause(2000);
+        await $(sel.hhLocation).addValue(' ');
         await browser.pause(2000);
         await $(`//span[contains(text(),'${data.cityOrZipCode}')]`).click();
         await browser.pause(3000);
