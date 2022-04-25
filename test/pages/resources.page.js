@@ -59,9 +59,9 @@ class Resources extends Base {
                 } else await $(sel.backBtn).click();
                 await browser.pause(500);
             } else {
-                await browser.pause(1000);
+                await browser.pause(3000);
                 if (await $(sel.closeBtn).isDisplayed()) await $(sel.closeBtn).click();
-                await browser.pause(6000);
+                await browser.pause(2000);
                 await this.browseAllCategories()
             }
         }

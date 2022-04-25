@@ -153,11 +153,11 @@ class Base {
     }
 
     async busyCheck() {
-        await browser.pause(100)
+        await browser.pause(300)
         if (await $(sel.loading).isDisplayed()) {
             // console.log('LOADING...');
             while (await $(sel.loading).isDisplayed()) {
-                await browser.pause(100);
+                await browser.pause(250);
             }
         }
     }
