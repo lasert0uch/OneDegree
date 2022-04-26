@@ -155,7 +155,7 @@ const config = {
     beforeSession: function (config, capabilities, specs) {
         if (process.env.BS === 'true') {
             const spec = specs[0].slice(specs[0].indexOf('specs') + 6, -3);
-            capabilities.name += `-${spec}`;
+            capabilities.name += `-${spec}-${capabilities.prefs.environment}`;
         }
     },
     /**
@@ -254,7 +254,7 @@ const config = {
         if (process.env.BS === 'true') {
             if (result === 0) {
                 console.log('Setting BrowserStack session status to "Good"...');
-                await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Passed"}}`, [result]);
+                await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Passed-on-${capabilities.prefs.environment}"}}`, [result]);
             } else {
                 console.log('Setting BrowserStack session status to "Bad"...');
                 await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "${fullName}"}}`, [result]);

@@ -17,7 +17,7 @@ const user = {
     gender: 'Female',
 }
 
-describe('Assessments', () => {
+describe(`Assessments-${assessments.environment()}`, () => {
 
     it('Open-Assessments', async () => {
         await assessments.open('plan#assessments');

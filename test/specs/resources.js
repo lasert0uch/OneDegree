@@ -1,7 +1,7 @@
 
 import resources from '../pages/resources.page';
 
-describe('Resources', () => {
+describe(`Resources-${resources.environment()}`, () => {
 
     it('Open-Resources-Page', async () => {
         await resources.open();
