@@ -92,8 +92,8 @@ class Assessments extends Base {
         await this.busyCheck();
         await browser.waitUntil(async () => await $(sel.hhStep1).isDisplayed(),
             {
-                timeout: 45000,
-                timeoutMsg: 'Housing Helper Results took longer than 45s to display'
+                timeout: 90000,
+                timeoutMsg: 'Housing Helper Results took longer than 90s to display'
             }
         );
         await browser.pause(5000);
