@@ -39,10 +39,10 @@ class Assessments extends Base {
         await browser.pause(1000);
         await $(sel.hhBtnNext).click();
         await this.busyCheck();
-        await browser.waitUntil(async () => (await $(sel.txtH1).getText()) === 'COVID-19 Resource Recommendations',
+        await browser.waitUntil(async () => (!await $(this.baseSel.spinner).isDisplayed()),
             {
                 timeout: 15000,
-                timeoutMsg: 'COVID-19 Results took longer than 15s to display'
+                timeoutMsg: 'COVID-19 Results took longer than 15sec to display'
             }
         );
         await browser.pause(2000);

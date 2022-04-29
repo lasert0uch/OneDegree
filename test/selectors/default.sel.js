@@ -32,4 +32,5 @@ export default {
     defaultNavBar: `//div[@class='col-sm-12 area-tabs']`,
     defaultRegionBtn: `//button[@ng-click='openUpdateRegionModal()']`,
     loading: `//div[@class="cg-busy cg-busy-animation ng-scope"]`,
+    spinner: `.spinner`,
 }

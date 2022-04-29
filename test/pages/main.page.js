@@ -27,9 +27,10 @@ class Main extends Base {
     async buttons2() {
         await $(sel.yes).click(); // Homeless Yes
         await $(sel.parent).click();
-        await $(sel.location).setValue('1906, 100 W 7th St, Los Angeles, CA 90014');
+        let zipCode = '90001'
+        await $(sel.location).setValue(zipCode);
         await browser.pause(500);
-        await $$('.pac-container')[0].click();
+        await $(`//span[text()='${zipCode}']`).click();
         await browser.pause(100);
         await $(sel.seeResources).click();
         await browser.waitUntil(async () => (await $(sel.labelResults).isDisplayed()),

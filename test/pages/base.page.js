@@ -27,7 +27,7 @@ class Base {
 
     async open(path, serverForce) {
         let auth;
-        let server = this.url;
+        let server = this.url.toLowerCase();
         if (serverForce) server = serverForce;
         path === undefined || !path ? path = '' : path;
         // auth === undefined || !auth ? auth = '' : auth; // username:password@
@@ -154,11 +154,14 @@ class Base {
 
     async busyCheck() {
         await browser.pause(300)
-        if (await $(sel.loading).isDisplayed()) {
+        if (await $(sel.loading).isDisplayed() || await $(sel.spinner).isDisplayed()) {
             // console.log('LOADING...');
             while (await $(sel.loading).isDisplayed()) {
                 await browser.pause(250);
             }
+            // while (await $(sel.spinner).isDisplayed()) { // ! Not best practice to wait forever for API results
+            //     await browser.pause(250);
+            // }
         }
     }
 
