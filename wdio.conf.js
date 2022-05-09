@@ -4,7 +4,7 @@ const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops a
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
 const mochaBail = process.env.BAIL === 'false' ? false : true; // Abort ("bail") after first test failure
 const logging = process.env.LOGLEVEL === undefined ? 'silent' : process.env.LOGLEVEL; // Level of logging verbosity: trace | debug | info | warn | error | silent
-const environment = process.env.ENV === undefined ? ['RBG'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['Chavez', 'Davis', 'Demo', 'Floyd', 'Greta', 'Parks', 'RBG', 'WWW', 'local']
+const environment = process.env.ENV === undefined ? ['Chavez'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['Chavez', 'Davis', 'Demo', 'Floyd', 'Greta', 'Parks', 'RBG', 'WWW', 'local']
 
 
 const config = {
@@ -22,6 +22,7 @@ const config = {
         // './test/specs/od-la.js',
         './test/specs/assessments.js',
         // './test/specs/resources.js',
+        './test/specs/collections.js',
     ],
     // Patterns to exclude.
     exclude: [
@@ -115,8 +116,8 @@ const config = {
     mochaOpts: {
         require: ['@babel/register'],
         ui: 'bdd',
-        timeout: 180000,
-        bail: mochaBail, // Abort ("bail") after first test failure   [boolean]
+        timeout: 600000, // 10min
+        bail: mochaBail, // Abort ("bail") spec after first test failure [boolean]
     },
     //
     // =====
@@ -256,6 +257,7 @@ const config = {
      */
     after: async function (result, capabilities, specs) {
         if (process.env.BS === 'true') {
+            if (fullName === undefined || fullName === 'undefined') fullName = '--Unknown Error, or Timeout Exceeded';
             if (result === 0) {
                 console.log('Setting BrowserStack session status to "Good"...');
                 await browser.executeScript(`browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed","reason": "Passed-on-${capabilities.prefs.environment}"}}`, [result]);

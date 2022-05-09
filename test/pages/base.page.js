@@ -165,6 +165,21 @@ class Base {
         }
     }
 
+    async successClose() {
+        await browser.pause(1000);
+        if (await $(sel.successAlert).isDisplayed()) await $(sel.successAlert).click();
+        await browser.pause(500)
+    }
+
+    async spinner(time, msg) {
+        await browser.waitUntil(async (time, msg) => (!await $(this.baseSel.spinner).isDisplayed()),
+            {
+                timeout: time,
+                timeoutMsg: msg
+            }, time, msg
+        );
+    }
+
 
     // ------------------ Platform Checks ------------------ //
 
@@ -293,6 +308,36 @@ class Base {
         }
         await browser.pause(500);
     }
+
+    async menuPress(choice) { // 'My Plan', 'My Assessments', 'Saved Collections', '', '', 
+        if (await this.smallPage()) {
+            await browser.pause(2000);
+            await $(sel.smallMenuBtn).click();
+            await browser.pause(1000);
+            switch (choice) {
+                case 'My Plan':
+                    await $(`//a[@href='/plan#resources']/i`).click();
+                    break;
+                case 'My Assessments':
+                    await $(`//a[@href='/plan#assessments']/i`).click();
+                    break;
+                case 'Saved Collections':
+                    await $(`//a[@href='/collections?page=my']/i`).click();
+                    break;
+                default:
+                    console.log(`Menu option not available for: "${choice}"`);
+            }
+        } else {
+            await $(sel.menuBtn).click();
+            await browser.pause(500);
+            if ($(`//span[text()='${choice}']`).isDisplayed()) {
+                await $(`//span[text()='${choice}']`).click();
+            } else console.log(`Menu option not found: "${choice}"`);
+
+        }
+        await browser.pause(500);
+    }
+
 
 
 }

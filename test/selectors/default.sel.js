@@ -22,6 +22,7 @@ export default {
     ddDOBYear: `//button[contains(text(),'Year')]`,
     ddArray: `//ul[@class='dropdown-menu']`, // [1] = Day, [2] = Month, [3] = Year
     // smallMenuBtn: `//a[@class='btn']`,
+    menuBtn: `div.main-menu.nav-dropdown-menu a`,
     smallMenuBtn: `i.fa-fw.fa-bars`,
     smallLocation: `//li/a[@ng-click='openLocationModal()']`,
     defaultLocationBtn: `//button[@ng-click='openUpdateRegionModal()']`,
@@ -33,4 +34,5 @@ export default {
     defaultRegionBtn: `//button[@ng-click='openUpdateRegionModal()']`,
     loading: `//div[@class="cg-busy cg-busy-animation ng-scope"]`,
     spinner: `.spinner`,
+    successAlert: `//button[@ng-show='closeable']`,
 }
