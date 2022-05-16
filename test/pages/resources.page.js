@@ -73,7 +73,7 @@ class Resources extends Base {
         let addLinks, opps;
         let adds = 0;
         // Get Number of opps from page 'See all' for category
-        await browser.pause(2000);
+        await this.spinner(60000, 'Loading resource took longer than 60s');
         if (await $(sel.resourcesNum).isDisplayed()) {
             opps = await $(sel.resourcesNum).getText();
             opps = +opps.slice(opps.indexOf('of') + 3, opps.indexOf('resources') - 1);

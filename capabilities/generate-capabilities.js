@@ -1,4 +1,4 @@
-const browsers = process.env.BROWSERS === undefined ? ['Chrome', 'Firefox'] : process.env.BROWSERS.split(', '); // ['Chrome', 'Firefox', 'Safari', 'Edge']
+const browsers = process.env.BROWSERS === undefined ? ['Chrome'] : process.env.BROWSERS.split(', '); // ['Chrome', 'Firefox', 'Safari', 'Edge']
 const browserVersions = process.env.VERSIONS === undefined ? ['latest'] : process.env.VERSIONS.split(', '); // ['latest', 'latest - 1']
 const resolutions = process.env.RES === undefined ? ['1920x1080'] : process.env.RES.split(', '); // ['1920x1080', '1024x768', '1366x768']
 const maxInst = process.env.BROWSER_INSTANCES === undefined ? 5 : +process.env.BROWSER_INSTANCES;

@@ -4,7 +4,7 @@ let org = false;
 const user = {
     firstName: help.randomFirstNameFemale(),
     lastName: help.randomLastName(),
-    email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
+    email: `1degreetest+${help.generateRandomStringOfIntegers(10)}@gmail.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles', // 'San Francisco', 'Los Angeles'

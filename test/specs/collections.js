@@ -5,7 +5,7 @@ let org = false;
 const user = {
     firstName: help.randomFirstNameMale(),
     lastName: help.randomLastName(),
-    email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
+    email: `1degreetest+${help.generateRandomStringOfIntegers(10)}@gmail.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles', // 'San Francisco', 'Los Angeles'
@@ -47,6 +47,7 @@ describe(`Collections-${collections.environment()}`, () => {
     it('Go-To-Collections', async () => {
         await collections.menuPress('Saved Collections');
         await collections.menuPress('Saved Collections'); // ! Why need to press twice to get to Collections?
+        await collections.spinner(60000, 'Took longer than 60 seconds to get to "My Collections"')
     })
 
     it('Create-Collections', async () => {

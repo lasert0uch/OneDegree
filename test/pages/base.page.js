@@ -4,7 +4,7 @@ import help from "../helpers/helpers"
 const genericUser = {
     firstName: help.randomFirstNameFemale(),
     lastName: help.randomLastName(),
-    email: `test.${help.generateRandomStringOfIntegers(10)}@example.com`,
+    email: `1degreetest+${help.generateRandomStringOfIntegers(10)}@gmail.com`,
     phone: help.randomPhoneNumber(),
     password: 'Password1*',
     loc: 'Los Angeles', // 'San Francisco', 'Los Angeles'
@@ -166,17 +166,18 @@ class Base {
     }
 
     async successClose() {
-        await browser.pause(1000);
+        await browser.pause(2000);
         if (await $(sel.successAlert).isDisplayed()) await $(sel.successAlert).click();
         await browser.pause(500)
     }
 
     async spinner(time, msg) {
-        await browser.waitUntil(async (time, msg) => (!await $(this.baseSel.spinner).isDisplayed()),
+        await browser.pause(500)
+        await browser.waitUntil(async () => (!await $(this.baseSel.spinner).isDisplayed()),
             {
                 timeout: time,
                 timeoutMsg: msg
-            }, time, msg
+            }
         );
     }
 
@@ -224,7 +225,9 @@ class Base {
     }
 
     firefoxOnly() {
-        return process.env.BS && browser.capabilities.browserName === 'firefox';
+        if (process.env.BS === 'true') {
+            return browser.capabilities.browserName === 'firefox';
+        } else return false
     }
 
     // ------------------ Create Account ------------------ //
