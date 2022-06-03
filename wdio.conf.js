@@ -4,8 +4,7 @@ const debugTest = process.env.DBT === 'true' ? true : false; // DBT=true Stops a
 const debugSuite = process.env.DBS === 'true' ? true : false; // DBS=true Stops at the end of every test suite
 const mochaBail = process.env.BAIL === 'false' ? false : true; // Abort ("bail") after first test failure
 const logging = process.env.LOGLEVEL === undefined ? 'silent' : process.env.LOGLEVEL; // Level of logging verbosity: trace | debug | info | warn | error | silent
-const environment = process.env.ENV === undefined ? ['Chavez'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['Chavez', 'Davis', 'Demo', 'Floyd', 'Greta', 'Parks', 'RBG', 'WWW', 'local']
-
+const environment = process.env.ENV === undefined ? ['Chavez', 'Demo', 'Greta', 'Parks', 'RBG', 'WWW'] : process.env.ENV.split(', '); // Environment Variables to Run (array) - ['Chavez', 'Davis', 'Demo', 'Floyd', 'Greta', 'Parks', 'RBG', 'WWW', 'local']
 
 const config = {
     //
@@ -19,10 +18,11 @@ const config = {
     // Specify Test Files
     // ==================
     specs: [
-        // './test/specs/od-la.js',
+        './test/specs/referrals.js',
         './test/specs/assessments.js',
-        // './test/specs/resources.js',
         './test/specs/collections.js',
+        // './test/specs/resources.js',
+        // './test/specs/od-la.js',
     ],
     // Patterns to exclude.
     exclude: [

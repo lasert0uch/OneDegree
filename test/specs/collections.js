@@ -45,8 +45,8 @@ describe(`Collections-${collections.environment()}`, () => {
     })
 
     it('Go-To-Collections', async () => {
-        await collections.menuPress('Saved Collections');
-        await collections.menuPress('Saved Collections'); // ! Why need to press twice to get to Collections?
+        await collections.menuPress('Collections');
+        await collections.menuPress('Collections'); // ! Why need to press twice to get to Collections?
         await collections.spinner(60000, 'Took longer than 60 seconds to get to "My Collections"')
     })
 
@@ -70,24 +70,28 @@ describe(`Collections-${collections.environment()}`, () => {
         await resources.checkFlow('Money', 1);
     })
 
-    it('Add-To-Employment-Collection', async () => {
-        await resources.checkFlow('Employment', 1);
-    })
+    if (!['greta'].includes(collections.url.toLowerCase())) { // Can add exclusions for any env here
 
-    it('Add-To-Education-Collection', async () => {
-        await resources.checkFlow('Education', 1);
-    })
+        it('Add-To-Employment-Collection', async () => {
+            await resources.checkFlow('Employment', 1);
+        })
 
-    it('Add-To-Housing-Collection', async () => {
-        await resources.checkFlow('Housing', 1);
-    })
+        it('Add-To-Education-Collection', async () => {
+            await resources.checkFlow('Education', 1);
+        })
 
-    it('Add-To-Health-Collection', async () => {
-        await resources.checkFlow('Health', 1);
-    })
+        it('Add-To-Housing-Collection', async () => {
+            await resources.checkFlow('Housing', 1);
+        })
 
-    it('Add-To-Food-Collection', async () => {
-        await resources.checkFlow('Food', 1);
-    })
+        it('Add-To-Health-Collection', async () => {
+            await resources.checkFlow('Health', 1);
+        })
+
+        it('Add-To-Food-Collection', async () => {
+            await resources.checkFlow('Food', 1);
+        })
+
+    }
 
 })

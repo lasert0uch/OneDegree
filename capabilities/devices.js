@@ -1,12 +1,12 @@
-const devices = [
-    {
-        "os_version": "10.0",
-        "device": "Samsung Galaxy Note 20 Ultra",
-        "real_mobile": "true",
-        "deviceOrientation": "portrait",
-        "browserName": "Android",
-        resolution: '412x753'
-    },
+const devices = [ // ! MOST TESTED: "device": "Samsung Galaxy Note 20 Ultra" // * Others may not work
+    // {
+    //     "os_version": "10.0",
+    //     "device": "Samsung Galaxy Note 20 Ultra",
+    //     "real_mobile": "true",
+    //     "deviceOrientation": "portrait",
+    //     "browserName": "Android",
+    //     resolution: '412x753'
+    // },
     // {
     //     "os_version": "9.0",
     //     "device": "Samsung Galaxy Tab S6",

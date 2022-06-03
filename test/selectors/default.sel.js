@@ -1,12 +1,15 @@
 export default {
     signUp: `//a[contains(text(),'Sign up')]`,
     logIn: `//a[contains(text(),'Login')]`,
+    btnLogin: `//button[contains(text(),'Login')]`,
     btnCreateAccount: `//button[contains(text(),'Create an account')]`,
     btnContinue: `//button[contains(text(),'Continue')]`,
     btnConnect: `//button[contains(text(),'Connect')]`,
     modalSignUp: `.modal-signup.ng-scope`,
     txtEmailPhone: `#signup_emailOrPhone`,
+    txtLoginEmailPhone: `#login_emailOrCellPhone`,
     txtPassword: `#signup_password`,
+    txtLoginPassword: `//input[@type='password']`,
     chkNonProfit: `//span[contains(text(),'I work at a nonprofit')]`, // unnecessary?
     chkBox: `//input[@type="checkbox"]`, // generic
     txtLocationSetters: `*[id*="location_setter"]`,
@@ -28,11 +31,13 @@ export default {
     defaultLocationBtn: `//button[@ng-click='openUpdateRegionModal()']`,
     locationSetter: `input[id^=location_setter]`,
     smallAssessments: `//a[@href='/plan#assessments' and @ng-click='toggleSideBar()']`,
-    smallSignUp: `//a[@ng-click='openSignupModal(); toggleSideBar()']`, // `a[ng-click='openSignupModal(); toggleSideBar()']>i`  `//a[@ng-click='openSignupModal(); toggleSideBar()']`
+    smallSignUp: `//a[@ng-click='openSignupModal(); toggleSideBar()']`,
+    smallLogin: `//a[@ng-click='openLoginModal(); toggleSideBar()']`,
     smallDismissApp: `//i[@class="fa fa-w fa-close"]`,
     defaultNavBar: `//div[@class='col-sm-12 area-tabs']`,
     defaultRegionBtn: `//button[@ng-click='openUpdateRegionModal()']`,
     loading: `//div[@class="cg-busy cg-busy-animation ng-scope"]`,
     spinner: `.spinner`,
     successAlert: `//button[@ng-show='closeable']`,
+    close: `//button[@class='close']`,
 }

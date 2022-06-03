@@ -15,9 +15,9 @@ class Collections extends Base {
         await browser.pause(2000)
         let i = await $$(sel.modalAddress).length - 1;
         $$(sel.modalAddress)[i].setValue(user.loc);
-        // await browser.pause(1000);
-        // $$(sel.modalAddress)[i].addValue(' ');
         await browser.pause(1000);
+        $$(sel.modalAddress)[i].addValue(' ');
+        await browser.pause(2000);
         $(`//span[text()='${user.loc}']`).click();
         await browser.pause(500);
         $(sel.modalPrivate).click();
@@ -26,7 +26,7 @@ class Collections extends Base {
         await this.successClose();
         await this.spinner(60000, 'Collection Creation took longer than 60s')
         await this.successClose();
-        await this.menuPress('Saved Collections');
+        await this.menuPress('Collections');
         await browser.pause(1000);
     }
 
