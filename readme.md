@@ -39,6 +39,6 @@ This is an Async JavaScript WebdriverIO and MochaJS project with the potential t
 
 1.  run `npm run websites` to start the checking of all sites listed in `./z_resourceManagement/content/websites.js` file
 
-- Massage Data in Excel with this formula (assuming ID and URL are available): `=CONCAT("['OrgID: "&B2&"', '"&C2&"']")` or `=CONCAT("['OppID: "&B2&"', '"&C2&"']")`
+- Massage Data in Excel with this formula (assuming ID and URL are available - Cell references may differ): `=CONCAT("['OrgID: "&B2&"', '"&C2&"'],")` or `=CONCAT("['OppID: "&B2&"', '"&C2&"'],")`
 - output for `websites` run will be logged in the `output.txt` file
 - `websites` run needs to happen on a server open to the internet (no site-blocking firewall or VPN)
